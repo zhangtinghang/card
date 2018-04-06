@@ -1,17 +1,177 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 	<head>
-		<meta charset="UTF-8">
-		<title>公司</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="css/mui.min.css" rel="stylesheet" />
+		<meta charset="utf-8">
+		<title>个人名片</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="js/zoom/flexible.js"></script>
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/style.css" />
+		<style>
+			.content-body {
+				position: relative;
+				padding-top: 50px;
+				padding-bottom: 2px;
+			}
+			
+			.body-bg {
+				height: 3.2rem;
+				width: 100%;
+				position: fixed;
+				top: 1.322rem;
+				transform: translateY(37.6px);
+				-wevkit-transform: translateY(37.6px);
+				left: 0;
+				z-index: 0;
+				background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffbb3c, #ffbb3c);
+				background-blend-mode: normal, normal;
+				border-radius: 0 0 0.833rem 0.833rem;
+			}
+		</style>
 	</head>
 
 	<body>
+		<header class="main-header" id="header">
+			<div class="header-search">
+				<label><img align="center" src="images/index/search.png" /></label>
+				<input type="search" placeholder="服务外包协会"></input>
+			</div>
+			<div class="header-addIcon">
+				<img align="center" src="images/index/add_card.png" />
+			</div>
+		</header>
+		<div class="mui-content" id="content">
+			<div id="slider" class="mui-slider">
+				<div id="mui-scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll" id="mui-scroll">
+						<a class="mui-control-item mui-active" href="0">
+							推荐
+						</a>
+						<a class="mui-control-item" href="1">
+							热点
+						</a>
+						<a class="mui-control-item" href="2">
+							北京
+						</a>
+						<a class="mui-control-item" href="3">
+							社会
+						</a>
+						<a class="mui-control-item" href="4">
+							娱乐
+						</a>
+						<a class="mui-control-item" href="5">
+							科技
+						</a>
+						<a class="mui-control-item" href="6">
+							科技
+						</a>
+						<a class="mui-control-item" href="7">
+							科技
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="content-body">
+				<div class="body-bg" id="body-bg"></div>
+
+				<div class="card-model">
+					<nav class="nav-tag">
+						<div class="tag-items">
+							<div id="slider" class="mui-slider slider-card">
+								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+									<div class="mui-scroll mui-scroll-tag">
+										<ul>
+											<div class="tag-items-li tag-item-1">会员</div>
+											<div class="tag-items-li tag-item-2">协会</div>
+											<div class="tag-items-li tag-item-3">软件</div>
+											<div class="tag-items-li tag-item-3">软件</div>
+											<div class="tag-items-li tag-item-3">软件</div>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tag-text mui-ellipsis-1">猫爪科技有限公司</div>
+					</nav>
+					<div class="body-content">
+						<div class="body-content-img">
+							<img src="" />
+						</div>
+						<div class="body-content-mess">
+							<div class="mess-title">
+								<div class="title-name mui-ellipsis-1">李晓明</div>
+								<div class="title-icon-phone">
+									<img align="center" src="images/index/call_to.png" />
+								</div>
+								<div class="title-icon-adress">
+									<img align="center" src="images/index/company_infor.png" />
+								</div>
+							</div>
+							<div class="adress-text mui-ellipsis-1">资源对接办公室</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/immersed.js"></script>
+		<script type="text/javascript" src="js/util.js" ></script>
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+		<script type="text/javascript" src="js/mui.slider.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.plusReady(function () {
+			    // 创建子webview窗口 并初始化
+				var aniShow = {};
+				util.initSubpage(aniShow);
+
+				var nview = plus.nativeObj.View.getViewById('tabBar'),
+					activePage = plus.webview.currentWebview(),
+					targetPage,
+					subpages = util.options.subpages,
+					pageW = window.innerWidth,
+					currIndex = 0;
+
+				/**
+				 * 根据判断view控件点击位置判断切换的tab
+				 */
+				nview.addEventListener('click', function(e) {
+					var clientX = e.clientX;
+					if(clientX > parseInt(pageW * 0.1) && clientX <= parseInt(pageW * 0.3)) {
+						currIndex = 0;
+					} else if(clientX > parseInt(pageW * 0.4) && clientX <= parseInt(pageW * 0.6)) {
+						currIndex = 1;
+					} else if(clientX > parseInt(pageW * 0.7) && clientX <= parseInt(pageW * 0.9)) {
+						currIndex = 2;
+					}
+					// 匹配对应tab窗口	
+					if(currIndex > 0) {
+						targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
+					} else {
+						targetPage = plus.webview.currentWebview();
+					}
+
+					if(targetPage == activePage) {
+						return;
+					}
+
+					//底部选项卡切换
+					util.toggleNview(currIndex);
+					// 子页面切换
+					util.changeSubpage(targetPage, activePage, aniShow);
+					//更新当前活跃的页面
+					activePage = targetPage;
+				});
+				
+				mui('.mui-scroll').on('tap', 'a', function() {
+					console.log('开始')
+				})
+			})			
 		</script>
 	</body>
 

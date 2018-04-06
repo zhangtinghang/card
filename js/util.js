@@ -1,8 +1,8 @@
 var util = {
 	options: {
-		ACTIVE_COLOR: "#0DAD95",
-		NORMAL_COLOR: "#555",
-		subpages: ["im/msg_list.html","pages_student/all_student.html","pages_student/me.html"]
+		ACTIVE_COLOR: "#fea000",
+		NORMAL_COLOR: "#46495b",
+		subpages: ["pages/company.html","pages/my_self.html"]
 	},
 	/**
 	 *  简单封装了绘制原生view控件的方法
@@ -81,9 +81,9 @@ var util = {
 		util.updateSubNViewIcon(currIndex, 'active');
 		util.updateSubNView(currIndex + 1, util.options.ACTIVE_COLOR);
 		// 重绘兄弟tag 反之排除当前点击的icon和text
-		for(var i = 0; i < 8; i++) {
+		for(var i = 0; i < 6; i++) {
 			if(i !== currIndex && i !== currIndex + 1) {
-				if(i == 0 || i == 2 ||i==4 || i==6){
+				if(i == 0 || i == 2 ||i==4){
 					util.updateSubNViewIcon(i, 'normal');
 				}else{
 					util.updateSubNView(i, util.options.NORMAL_COLOR);
@@ -106,27 +106,21 @@ var util = {
 //		console.log('这是原来的路径',obj,'这是当前点击',currIndex,'这是状态',flag);
 		if(currIndex == 0){
 			if(flag === 'active'){
-				obj = '_www/images/index/man_page_hover.png';
+				obj = '_www/images/main/card_hover.png';
 			}else{
-				obj = '_www/images/index/man_page.png';
+				obj = '_www/images/main/card.png';
 			}
 		}else if(currIndex == 2){
 			if(flag === 'active'){
-				obj = '_www/images/index/information_hover.png';
+				obj = '_www/images/main/company_hover.png';
 			}else{
-				obj = '_www/images/index/information.png';
+				obj = '_www/images/main/company.png';
 			}
 		}else if(currIndex == 4){
 			if(flag === 'active'){
-				obj = '_www/images/index/students_hover.png';
+				obj = '_www/images/main/my_hover.png';
 			}else{
-				obj = '_www/images/index/students.png';
-			}
-		}else if(currIndex == 6){
-			if(flag === 'active'){
-				obj = '_www/images/index/my_hover.png';
-			}else{
-				obj = '_www/images/index/my.png';
+				obj = '_www/images/main/my.png';
 			}
 		}
 //		obj =obj+ src;

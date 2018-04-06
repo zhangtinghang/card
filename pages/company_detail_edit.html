@@ -1,0 +1,446 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>记录详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+			.mui-content {
+				padding: 0 5%;
+				padding-top: 2.322rem;
+				padding-bottom: 0.5rem;
+			}
+			
+			.edit-bg {
+				position: relative;
+				margin-bottom: 0.389rem;
+				z-index: 99;
+				font-size: 0.389rem;
+				color: #46495b;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+			}
+			
+			.edit-bg li {
+				display: flex;
+				align-items: center;
+				min-height: 1.25rem;
+			}
+			
+			.edit-bg li:last-child {
+				border-bottom: none;
+			}
+			
+			.delete-btn {
+				width: 0.333rem !important;
+				height: 0.333rem !important;
+				margin-top: 0 !important;
+			}
+			
+			.edit-left-box {
+				width: 100%;
+				padding-left: 5%;
+				border-bottom: 0.028rem solid #f1f1f1;
+				display: inline-flex;
+				align-items: center;
+			}
+			
+			.edit-left-box input {
+				padding: 0;
+				margin: 0;
+				border: none;
+				text-align: right;
+			}
+			
+			.edit-left-text {
+				padding: 0.138rem 0;
+				padding-right: 5%;
+			}
+			
+			.edit-left-edit {
+				border: none;
+				padding: 0.138rem 0;
+				padding-right: 5%;
+				margin: 0;
+				min-height: 1.25rem;
+				background-color: rgba(0, 0, 0, 0);
+			}
+			
+			.edit-left {
+				width: 35%;
+				min-height: 1.25rem;
+				display: inline-flex;
+				align-items: center;
+			}
+			
+			.edit-right {
+				width: 65%;
+				min-height: 1.25rem;
+				display: inline-flex;
+				align-items: center;
+				flex-direction: row-reverse;
+				text-align: right;
+			}
+			
+			.edit-icon {
+				width: 15%;
+				height: 1.25rem;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+			}
+			
+			.edit-icon img {
+				width: 0.444rem;
+				height: 0.389rem;
+				margin-top: -0.038rem;
+			}
+			/*图片轮播样式调整*/
+			
+			.mui-slider-image {
+				position: relative;
+				width: 107.78%;
+				margin-left: -3.89%;
+				background-image: none;
+				background-color: rgba(0, 0, 0, 0);
+				overflow: hidden;
+			}
+			
+			.body-title {
+				position: relative;
+				z-index: 9;
+				margin: 0 5%;
+				height: 5.556rem;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+			}
+			.body-list{
+				margin-top: 0.375rem;
+			}
+			
+			.card-anchor-bg ul {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: 0.389rem 0;
+			}
+			
+			.card-anchor-bg li {
+				margin: 0 0.2rem;
+			}
+			
+			.card-anchor {
+				width: 0.417rem;
+				height: 0.083rem;
+				background-color: #949398;
+				box-shadow: 0rem 0.083rem 0.125rem 0.014rem rgba(148, 147, 152, 0.5);
+			}
+			
+			.anchor-active {
+				background-color: #05b9fc;
+				box-shadow: 0rem 0.083rem 0.125rem 0.014rem rgba(5, 185, 252, 0.5);
+			}
+			
+			.add-edit {
+				height: 1.25rem;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+				display: flex;
+				align-items: center;
+				overflow: hidden;
+			}
+			.add-edit img{
+				width: 0.444rem;
+				height: 0.444rem;
+				margin: 0 0.583rem;
+			}
+			.add-edit-mess{
+				font-size: 0.389rem;
+				color: #949398;
+				width: 100%;
+			}
+			/*标签*/
+			.body-title-tag {
+				height: 1.25rem;
+				margin: 0 auto;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+				display: flex;
+				margin-bottom: 0.389rem;
+				position: relative;
+			}
+			
+			.nav-tag {
+				width: 100%;
+				display: flex;
+				align-items: center;
+			}
+			
+			.tag-items {
+				width: 80%;
+				margin-left: 5%;
+			}
+			
+			.tag-text {
+				width: 15%;
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.tag-text img {
+				width: 0.444rem;
+				height: 0.444rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="main-header" id="header">
+			<div class="header-left">
+				<img align="center" src="../images/back.png" /> 公司编辑
+			</div>
+			<div class="header-right">
+				完成
+			</div>
+		</header>
+		<div class="mui-content" id="content">
+			<div class="body-bg"></div>
+			<!--轮播图-->
+			<div id="mui-slider-image" class="mui-slider mui-slider-image">
+				<div class="mui-slider-group mui-slider-group-images">
+					<!--第一个内容区容器-->
+					<div class="mui-slider-item mui-slider-item-images">
+						<!-- 具体内容 -->
+						<div class="body-title">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="body-list">
+				<!--公司-->
+				<div class="edit-bg">
+					<ul>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">公司</div>
+								<div class="edit-right">米椒游戏有限公司</div>
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/company_edit.png" />
+							</div>
+						</li>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">地址</div>
+								<div class="edit-right">成都市都江堰市青城山镇东软大道一号</div>
+								<!--<input type="text" id="" value="海外游戏洽谈" />-->
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/company_address.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">位置</div>
+								<div class="edit-right">成都东软学院A6-201</div>
+								<!--<input type="text" id="" value="海外游戏洽谈" />-->
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/company_address.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<!--标签-->
+				<div class="body-title-tag">
+					<nav class="nav-tag">
+						<div class="tag-items">
+							<div id="slider" class="mui-slider slider-card">
+								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+									<div class="mui-scroll mui-scroll-tag">
+										<ul>
+											<div class="tag-items-li tag-item-1">会员</div>
+											<div class="tag-items-li tag-item-2">协会</div>
+											<div class="tag-items-li tag-item-3">软件</div>
+											<div class="tag-items-li tag-item-3">软件</div>
+											<div class="tag-items-li tag-item-3">软件</div>
+											<div class="tag-items-li tag-item-1">会员</div>
+											<div class="tag-items-li tag-item-2">协会</div>
+											<div class="tag-items-li tag-item-3">软件</div>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tag-text">
+							<img src="../images/selfCard/add_label_to.png" />
+						</div>
+					</nav>
+				</div>
+				
+				<!--公司简介-->
+				<div class="edit-bg">
+					<ul>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">公司简介</div>
+								<!--<input type="text" id="" value="张晓军" />-->
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/company/edit.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				
+
+				<!--企业-->
+				<div class="edit-bg">
+					<ul>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">企业类别</div>
+								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
+								<input type="text" id="" value="游戏开发" />
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/aite.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">企业性质</div>
+								<div class="edit-right">中外合资企业</div>
+								<!--<input type="text" id="" value="张晓军" />-->
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/aite.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">涉及领域</div>
+								<div class="edit-right">游戏外包、游戏开发</div>
+								<!--<input type="text" id="" value="张晓军" />-->
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/aite.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">外包类型</div>
+								<div class="edit-right">游戏外包、手游推广</div>
+								<!--<input type="text" id="" value="张晓军" />-->
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/aite.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<!--注册-->
+				<div class="edit-bg">
+					<ul>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">注册时间</div>
+								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
+								<input type="text" id="" value="2018/02/17" />
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/company_edit.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">注册地点</div>
+								<div class="edit-right">成都市都江堰市</div>
+								<!--<input type="text" id="" value="张晓军" />-->
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/company_edit.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<!--公司网址-->
+				<div class="edit-bg">
+					<ul>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">公司网址</div>
+								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
+								<input type="text" id="" value="www.baidu.com" />
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/compant_net.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">位置</div>
+								<div class="edit-right">成都东软学院</div>
+								<!--<input type="text" id="" value="张晓军" />-->
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/compant_net.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<!--人员规模-->
+				<div class="edit-bg">
+					<ul>
+						<li>
+							<div class="edit-left-box">
+								<div class="edit-left">人员规模</div>
+								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
+								<input type="text" id="" value="200人" />
+							</div>
+							<div class="edit-icon">
+								<img align="center" src="../images/card/compant_net.png" />
+								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+</html>

@@ -1,0 +1,318 @@
+/*主页导航条样式*/
+
+.main-header {
+	width: 100%;
+	padding: 0 5%;
+	height: 1.333rem;
+	background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffc041, #ffc041);
+	background-blend-mode: normal, normal;
+	position: fixed;
+	justify-content: space-between;
+	align-items: center;
+	display: flex;
+	z-index: 9999;
+}
+
+			
+.header-left {
+	font-size: 0.5rem;
+	font-weight: normal;
+	font-stretch: normal;
+	color: #ffffff;
+}
+
+.header-left img {
+	width: 0.264rem;
+	height: 0.5rem;
+	margin-top: -0.1rem;
+	margin-right: 0.208rem;
+}
+
+.header-right {
+	font-size: 0.389rem;
+	font-weight: normal;
+	font-stretch: normal;
+	color: #ffffff;
+}
+
+.header-search {
+	margin-left: 3.89%;
+	width: 83.33%;
+	display: inline-flex;
+	align-items: center;
+	position: relative;
+}
+
+input[type=search] {
+	text-align: left;
+}
+
+.header-search label {
+	position: absolute;
+	top: 50%;
+	left: 0.389rem;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+}
+
+.header-search label>img {
+	width: 0.375rem;
+	height: 0.403rem;
+}
+
+.header-search input {
+	margin: 0;
+	padding: 0;
+	background-color: #FFFFFF !important;
+	padding-left: 1.153rem;
+	padding-right: 0.555rem;
+	border-radius: 0.389rem;
+}
+
+.header-addIcon {
+	width: 12.78%;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.header-addIcon img {
+	width: 0.583rem;
+	height: 0.583rem;
+}
+
+
+/*左滑部分*/
+
+.mui-slider {
+	position: fixed;
+	z-index: 99;
+	background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffc041, #ffc041);
+	background-blend-mode: normal, normal;
+}
+
+.mui-control-item {
+	color: #FFFFFF !important;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	position: relative;
+	font-size: 18px;
+	animation: fontSecal 0.5s;
+	-moz-animation: myfirst 0.5s;
+	/* Firefox */
+	-webkit-animation: myfirst 0.5s;
+	/* Safari 和 Chrome */
+	-o-animation: myfirst 0.5s;
+	/* Opera */
+	animation-fill-mode: forwards;
+	animation-timing-function: linear;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active:after {
+	content: ' ';
+	position: absolute;
+	bottom: 5px;
+	left: 50%;
+	background-color: #ffffff;
+	box-shadow: 0rem 0.083rem 0.125rem 0.014rem rgba(251, 133, 56, 0.5);
+	width: 14px;
+	height: 2px;
+	z-index: 999;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+}
+
+@keyframes fontSecal {
+	from {
+		opacity: 0.5;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes myfirst
+/* Firefox */
+
+{
+	from opacity: 0.5;
+}
+
+to {
+	opacity: 1;
+}
+
+
+}
+@-webkit-keyframes myfirst/* Safari 和 Chrome */
+{
+	from {
+		opacity: 0.5;
+	}
+	
+	to {
+		opacity: 1;
+	}
+}
+@-o-keyframes myfirst/* Opera */
+{
+	from {
+		opacity: 0.5;
+	}
+	
+	to {
+		opacity: 1;
+	}
+}
+
+/*名片布局部分*/
+.mui-content {
+	padding-top: 1.322rem;
+}
+.card-model {
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+	z-index: 9;
+	background-color: #ffffff;
+	box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+	border-radius: 0.417rem;
+	margin-bottom: 0.389rem;
+	padding: 0.389rem;
+	height: 4.444rem;
+}
+.nav-tag {
+	display: flex;
+	justify-content: space-between;
+}
+.tag-items {
+	width: 58%;
+	border-radius: 0.25rem !important;
+	overflow: hidden;
+	margin-top: -0.038rem;
+}
+.tag-items ul {
+	display: inline-flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.tag-items-li {
+	text-align: center;
+	position: relative;
+	border-radius: 0.25rem;
+	font-size: 0.333rem;
+	font-weight: normal;
+	font-stretch: normal;
+	color: #ffffff;
+	/*width: 1.25rem;*/
+	padding: 0 0.2rem !important;
+	max-width: 2.588rem;
+	min-width: 1.25rem;
+	height: 0.5rem;
+	line-height: 0.5rem;
+	margin-right: 0.2rem;
+}
+.tag-item-1 {
+	background-color: #fea000 !important;
+	box-shadow: 0rem 0.139rem 0.111rem 0rem rgba(254, 160, 0, 0.3);
+}
+.tag-item-2 {
+	background-color: #fb8538 !important;
+	box-shadow: 0rem 0.139rem 0.111rem 0rem rgba(251, 133, 56, 0.3);
+}
+.tag-item-3 {
+	background-color: #8a63c1 !important;
+	box-shadow: 0rem 0.139rem 0.111rem 0rem rgba(138, 99, 193, 0.3);
+}
+.tag-text {
+	width: 40%;
+	font-size: 0.389rem;
+	font-weight: normal;
+	font-stretch: normal;
+	color: #2f303a;
+}
+.body-content {
+	margin-top: 0.258rem;
+	height: 2.778rem;
+	display: flex;
+	position: relative;
+	justify-content: space-between;
+}
+.body-content-img {
+	width: 49%;
+	height: 2.778rem;
+	background-color: #FAFAFA;
+	border-radius: 0.278rem;
+}
+.img-avatar {
+	width: 2.778rem;
+	height: 2.778rem;
+	background-color: #FAFAFA;
+	border-radius: 90px;
+	overflow: hidden;
+}
+.body-content-mess {
+	width: 48%;
+}
+.mess-title {
+	display: inline-flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin-top: 1.222rem;
+}
+.title-name {
+	font-size: 0.5rem;
+	font-weight: normal;
+	font-stretch: normal;
+	color: #2f303a;
+	flex: 1;
+}
+.title-icon-phone {
+	width: 0.583rem;
+	height: 0.583rem;
+	margin: 0 0.438rem;
+}
+.title-icon-phone img {
+	width: 100%;
+}
+.title-icon-adress {
+	width: 0.556rem;
+	height: 0.625rem;
+}
+.title-icon-adress img {
+	width: 100%;
+}
+.adress-text {
+	font-size: 0.333rem;
+	font-weight: normal;
+	font-stretch: normal;
+	color: #46495b;
+	margin-top: 0.319rem;
+}
+
+/*左滑标签样式*/
+.slider-card{
+	position: relative;
+}
+.scroll-wrapper-tag{
+	height: 0.7rem !important;
+	background-color: #FFFFFF;
+}
+.mui-scroll-tag{
+	height: 0.5rem !important;
+}
+
+/*背景图*/
+.body-bg {
+	height: 3.2rem;
+	width: 100%;
+	position: fixed;
+	top: 1.194rem;
+	left: 0;
+	z-index: 0;
+	background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffbb3c, #ffbb3c);
+	background-blend-mode: normal, normal;
+	border-radius: 0 0 0.833rem 0.833rem;
+}

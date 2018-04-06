@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>个人名片</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>		
+			.mui-content {
+				padding-top:2rem;
+				z-index: 999;
+			}
+			
+			.content-body {
+				position: relative;
+				padding-top: 1.194rem;
+				width: 92.22%;
+				margin: 0 auto;
+			}
+			
+			.body-bg {
+				height: 5.7rem;
+				width: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 0;
+				background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffbb3c, #ffbb3c);
+				background-blend-mode: normal, normal;
+				border-radius: 0 0 0.833rem 0.833rem;
+			}
+			
+			.come_btn {
+				width: 1.361rem;
+				height: 0.556rem;
+				background-color: #8a63c1;
+				box-shadow: 0rem 0.125rem 0.083rem 0rem rgba(138, 99, 193, 0.3);
+				border-radius: 90px 0 0 90px;
+				z-index: 999;
+				position: fixed;
+				right: 0;
+				top: 2rem;
+				display: flex;
+				align-items: center;
+			}
+			
+			.come_btn img {
+				width: 0.458rem;
+				height: 0.333rem;
+				margin-left: 0.389rem;
+			}
+			
+			.card-bg {
+				width: 100%;
+				min-height: 3.778rem;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+				position: relative;
+			}
+			
+			.title-avatar-bg {
+				justify-content: center;
+				align-items: center;
+				border-radius: 90px;
+				width: 2.5rem;
+				height: 2.5rem;
+				margin: 0 auto;
+				background-color: rgba(255, 255, 255, 0.4);
+				position: absolute;
+				top: 0;
+				transform: translateY(-50%);
+				-webkit-transform: translateY(-50%);
+				left: 1.028rem;
+				z-index: 999;
+				display: flex;
+			}
+			
+			.title-avatar {
+				width: 2.222rem;
+				height: 2.222rem;
+				border-radius: 90px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.583rem;
+				color: #ffffff;
+			}
+			
+			.title-avatar img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.card-name {
+				text-align: center;
+				padding: 0.375rem;
+				font-size: 0.389rem;
+				color: #46495b;
+			}
+			
+			.name-surname {
+				font-size: 0.583rem;
+				color: #46495b;
+				margin-left: 0.403rem;
+			}
+			
+			.card-post {
+				font-size: 0.389rem;
+				color: #05b9fc;
+				margin-left: 0.208rem;
+			}
+			
+			.card-record ul {
+				display: flex;
+				padding-top: 0.097rem;
+				padding-bottom: 0.583rem;
+			}
+			
+			.card-record li {
+				flex: 1;
+				text-align: center;
+				font-size: 0.483rem;
+				color: #fb8538;
+			}
+			
+			.record-character {
+				font-size: 0.444rem;
+				color: #46495b;
+				margin-top: 0.583rem;
+			}
+
+			.card-list li {
+				height: 1.25rem;
+				margin-top: 0.583rem;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding:0 0.583rem;
+				position: relative;
+			}
+			.personal-data img{
+				width: 0.472rem;
+				height: 0.472rem;
+				margin-right: 0.458rem;
+			}
+			.data-sync img{
+				width: 0.528rem;
+				height: 0.528rem;
+				margin-right: 0.458rem;
+			}
+			.add-card img{
+				width: 0.528rem;
+				height: 0.389rem;
+				margin-right: 0.458rem;
+			}
+			.add-company img{
+				width: 0.472rem;
+				height: 0.458rem;
+				margin-right: 0.458rem;
+			}
+			.visit-record img{
+				width: 0.486rem;
+				height: 0.458rem;
+				margin-right: 0.458rem;
+			}
+			.right-img img{
+				width: 0.208rem;
+				height: 0.389rem;
+				margin-right: 0.458rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content" id="content">
+			<div class="content-body">
+				<div class="body-bg"></div>
+				<div class="come_btn">
+					<img src="../images/mySelf/exit.png" />
+				</div>
+				<div class="card-bg">
+					<div class="title-avatar-bg">
+						<div class="title-avatar">
+							<img src="../images/mySelf/head.png" />
+						</div>
+					</div>
+
+					<div class="card-name">
+						<span class="name-surname">李</span>晓明 <span class="card-post">CEO</span>
+					</div>
+
+					<div class="card-record">
+						<ul>
+							<li>
+								<div>10</div>
+								<div class="record-character">名片</div>
+							</li>
+							<li>
+								<div>45</div>
+								<div class="record-character">企业</div>
+							</li>
+							<li>
+								<div>88</div>
+								<div class="record-character">拜访次数</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!--列表-->
+				<div class="card-list">
+					<ul>
+						<li>
+							<div class="personal-data">
+								<img align="center" src="../images/mySelf/self_data.png" />
+								个人资料
+							</div>
+							<div class="right-img">
+								<img align="center" src="../images/mySelf/next.png" />
+							</div>
+						</li>
+						<li>
+							<div class="data-sync">
+								<img align="center" src="../images/mySelf/ds.png" />
+								数据同步
+							</div>
+							<div class="right-img">
+								<img align="center" src="../images/mySelf/next.png" />
+							</div>
+						</li>
+						<li>
+							<div class="add-card">
+								<img align="center" src="../images/mySelf/card_add.png" />
+								添加名片
+							</div>
+							<div class="right-img">
+								<img align="center" src="../images/mySelf/next.png" />
+							</div>
+						</li>
+						<li>
+							<div class="add-company">
+								<img align="center" src="../images/mySelf/company_add.png" />
+								添加公司
+							</div>
+							<div class="right-img">
+								<img align="center" src="../images/mySelf/next.png" />
+							</div>
+						</li>
+						<li>
+							<div class="visit-record">
+								<img align="center" src="../images/mySelf/visit_record.png" />
+								拜访记录
+							</div>
+							<div class="right-img">
+								<img align="center" src="../images/mySelf/next.png" />
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>记录详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+			.detail-avatar {
+				margin: 0.583rem 5%;
+				height: 2.472rem;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 0.583rem;
+			}
+			
+			.detail-left {
+				font-size: 0.444rem;
+				color: #949398;
+			}
+			.detail-right{
+				font-size: 0.444rem;
+				color: #46495b;
+			}
+			.detail-right img {
+				width: 1.667rem;
+				height: 1.667rem;
+			}
+			
+			.detail-list {
+				margin: 0.583rem 5%;
+				height: 1.25rem;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 0.583rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="main-header" id="header">
+			<div class="header-left">
+				<img align="center" src="../images/back.png" /> 个人资料
+			</div>
+			<div class="header-right">
+				完成
+			</div>
+		</header>
+		<div class="mui-content" id="content">
+			<div class="detail-avatar">
+				<div class="detail-left">头像</div>
+				<div class="detail-right">
+					<img src="../images/mySelf/head.png" />
+				</div>
+			</div>
+
+			<div class="detail-list">
+				<div class="detail-left">职位</div>
+				<div class="detail-right">
+					首席执行总监
+				</div>
+			</div>
+
+			<div class="detail-list">
+				<div class="detail-left">部门</div>
+				<div class="detail-right">
+					重要部门
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

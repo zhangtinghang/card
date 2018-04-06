@@ -1,0 +1,21 @@
+{
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "js/zoom/flexible.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.min.js",
+      "js/immersed.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/mui.slider.js",
+      "images/index/add_card.png",
+      "images/index/search.png",
+      "images/index/call_to.png",
+      "images/index/company_infor.png"
+    ],
+    "refer": [],
+    "priority": 0
+  }
+}

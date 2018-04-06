@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>记录详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+			.mui-content {
+				padding: 1.422rem 5%;
+				padding-bottom: 0.5rem !important;
+			}
+			
+			.card-bg {
+				min-height: 12.917rem;
+				position: relative;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+			}
+			
+			.triangle_date {
+				position: absolute;
+				top: 0;
+				left: 0;
+				overflow: hidden;
+				border-radius: 0.417rem;
+				width: 3.278rem;
+				height: 3.278rem;
+				background-color: #FFFFFF;
+			}
+			
+			.triangle_right {
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				z-index: 0;
+				transform: rotateZ(-45deg);
+				-webkit-transform: rotateZ(-45deg);
+				width: 3.278rem;
+				height: 3.278rem;
+			}
+			
+			.date-num {
+				position: relative;
+				z-index: 99;
+				padding: 5% 5%;
+			}
+			
+			.date-date {
+				font-size: 0.389rem;
+				color: #ffffff;
+			}
+			
+			.date-month {
+				font-size: 0.5rem;
+			}
+			
+			.date-year {
+				font-size: 0.278rem;
+				color: #ffffff;
+			}
+			
+			.triangle_right_3 {
+				background-color: #8a63c1;
+				box-shadow: 0rem 0.139rem 0.111rem 0rem rgba(138, 99, 193, 0.3);
+			}
+			
+			.card-title {
+				font-size: 0.5rem;
+				color: #2f303a;
+				text-align: center;
+				padding-top: 0.583rem;
+				position: relative;
+				width: 65%;
+				margin: 0 auto;
+			}
+			
+			.card-body {
+				padding: 0 5%;
+				position: relative;
+			}
+			
+			.card-small {
+				text-align: right;
+				font-size: 0.389rem;
+				color: #2f303a;
+				padding: 0.389rem 0;
+			}
+			
+			.card-item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				min-height: 0.961rem;
+			}
+			
+			.item-left {
+				width: 40%;
+			}
+			
+			.item-right {
+				width: 60%;
+				text-align: right;
+			}
+			.visit-record-line{
+				border-top: 1px solid #dcdcdc;
+			}
+			.visit-record {
+				display: flex;
+				align-items: center;
+				font-size: 0.333rem;
+				color: #46495b;
+				padding-top: 0.403rem;
+				padding-bottom: 0.375rem;
+				margin-top: 0.201rem;
+			}
+			
+			.circle {
+				display: block;
+				width: 0.222rem;
+				height: 0.222rem;
+				border-radius: 0.111rem;
+				margin-right: 0.208rem;
+			}
+			
+			.circle-1 {
+				background-color: #fea000;
+				box-shadow: 0rem 0.083rem 0.111rem 0rem rgba(254, 160, 0, 0.3);
+			}
+			
+			.circle-2 {
+				background-color: #05b9fc;
+				box-shadow: 0rem 0.083rem 0.111rem 0rem rgba(5, 185, 252, 0.3);
+			}
+			
+			.circle-3 {
+				background-color: #8a63c1;
+				box-shadow: 0rem 0.083rem 0.111rem 0rem rgba(138, 99, 193, 0.3);
+			}
+			
+			.body-text {
+				padding: 0 0.430rem;
+				font-size: 0.389rem;
+				color: #2f303a;
+			}
+			
+			.body-time{
+				text-align: right;
+				padding: 0.583rem 0;
+				font-size: 0.333rem;
+				color: #949398;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="main-header" id="header">
+			<div class="header-left">
+				<img align="center" src="../images/back.png" /> 记录详情
+			</div>
+		</header>
+		<div class="mui-content" id="content">
+			<div class="body-bg"></div>
+			<div class="card-bg">
+				<div class="triangle_date">
+					<div class="triangle_right triangle_right_3"></div>
+					<div class="date-num">
+						<div class="date-date"><span class="date-month">05</span>.03</div>
+						<div class="date-year">-2018</div>
+					</div>
+				</div>
+				<div class="card-title">对接洽谈海外游戏</div>
+				<div class="card-body">
+					<div class="card-small">米椒科技有限公司</div>
+					<div class="card-item">
+						<span class="item-left">拜访对象</span>
+						<span class="item-right">张明明</span>
+					</div>
+					<div class="card-item">
+						<span class="item-left">拜访人员</span>
+						<span class="item-right">张晓明、李明、阿阮 张晓明、李明、阿阮 张晓明、李明、阿阮</span>
+					</div>
+					<div class="card-item">
+						<span class="item-left">记录人员</span>
+						<span class="item-right">范凡</span>
+					</div>
+					<div class="visit-record visit-record-line">
+						<span class="circle circle-1"></span> 拜访记录
+					</div>
+					<div class="body-text">对接游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</div>
+
+					<div class="visit-record">
+						<span class="circle circle-2"></span> 遗留问题
+					</div>
+					<div class="body-text">对接游戏外包，促进本公司的海外市场。</div>
+
+					<div class="visit-record">
+						<span class="circle circle-3"></span> 其他
+					</div>
+					<div class="body-text">对接游戏外包，促进本公司的海外市场。</div>
+					<div class="body-time">2018-03-27 13: 30</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

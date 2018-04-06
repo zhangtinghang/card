@@ -12,7 +12,8 @@
 	clear: both;
 }
 body,html{
-	font-family: "microsoft yahei";
+	font-family: SourceHanSansCN-Regular;
+	height: 100%;
 }
 
  .mui-ellipsis-3 {
@@ -31,7 +32,7 @@ body,html{
 	text-overflow: ellipsis;
 	word-wrap: break-word;
 	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical
+	-webkit-box-orient: vertical;
 }
 #getPassword{
 	margin: 0;
@@ -42,9 +43,6 @@ body,html{
 	margin-top: -10px;
 	position: absolute;
 	bottom: 2px;
-}
-body,html{
-	height: 100%;
 }
 #msg-content{
 	height: 100%;
