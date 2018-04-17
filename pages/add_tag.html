@@ -42,7 +42,6 @@
 			.add-tag {
 				width: 92.2%;
 				display: flex;
-				justify-content: space-between;
 				align-items: center;
 				margin: 0 auto;
 				margin-top: 0.583rem;
@@ -51,18 +50,15 @@
 				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
 				border-radius: 0.417rem;
 			}
-			
+			.add-tag-text{
+				font-size: 0.444rem;
+				color: #949398;
+				margin-left: 0.403rem;
+			}
 			.add-tag img {
 				margin-left: 0.583rem;
 				width: 0.444rem;
 				height: 0.444rem;
-			}
-			
-			.add-tag input {
-				width: 85%;
-				margin: 0;
-				margin-right: 5%;
-				border: none;
 			}
 			
 			.add-tag-body {
@@ -95,58 +91,162 @@
 				font-stretch: normal;
 				color: #2f303a;
 			}
+			/*点击样式*/
+			.header-right:active{
+				opacity: 0.5;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="main-header" id="header">
-			<div class="header-left">
-				<img align="center" src="../images/back.png" /> 添加标签
+			<div class="header-left mui-action-back">
+				<img align="center" class="mui-action-back" src="../images/back.png" /> 添加标签
 			</div>
-			<div class="header-right">完成</div>
+			<div id="header-right" class="header-right">完成</div>
 		</header>
 		<div class="mui-content" id="content">
-			<div class="add-tag">
+			<div class="add-tag" id="add-tag">
 				<img align="center" src="../images/addTag/add_label.png" />
-				<input type="text" placeholder="添加新标签" value="" />
+				<div class="add-tag-text">添加新标签</div>
 			</div>
 			<div class="add-tag-body">
 				<ul>
-					<li>
-						<img align="center" src="../images/addTag/tick.png" />
-						<span>会员</span>
+					<!--<li data-type = '1'>
+						<img v-if="picked" align="center" src="../images/addTag/tick.png" />
+						<img v-else align="center" src="../images/addTag/untick.png" />
+						<span>银行</span>
 					</li>
-					<li>
+					<li data-type = '2'>
 						<img align="center" src="../images/addTag/tick.png" />
-						<span>协会</span>
+						<span>餐饮</span>
 					</li>
-					<li>
-						<img align="center" src="../images/addTag/tick.png" />
-						<span>游戏开发师</span>
-					</li>
-					<li>
+					<li data-type = '3'>
 						<img align="center" src="../images/addTag/tick.png" />
 						<span>政府</span>
 					</li>
-					<li>
-						<img align="center" src="../images/addTag/tick.png" />
-						<span>政府</span>
+					<li data-type = '4' v-model="picked">
+						<img v-if="picked" align="center" src="../images/addTag/tick.png" />
+						<img v-else align="center" src="../images/addTag/untick.png" />
+						<span>行业协会</span>
 					</li>
-					<li>
+					<li data-type = '5'>
 						<img align="center" src="../images/addTag/tick.png" />
-						<span>政府</span>
+						<span>游戏</span>
 					</li>
-					<li>
+					<li data-type = '6'>
 						<img align="center" src="../images/addTag/tick.png" />
-						<span>政府</span>
+						<span>ITO</span>
+					</li>
+					<li data-type = '7'>
+						<img align="center" src="../images/addTag/tick.png" />
+						<span>BPO</span>
+					</li>
+					<li data-type = '8'>
+						<img align="center" src="../images/addTag/tick.png" />
+						<span>开发游戏</span>
+					</li>-->
+					<li v-for="(item,index) in tagList" :data-type = 'index+1'>
+						<img v-if="item.checked==true" align="center" src="../images/addTag/tick.png" />
+						<img v-else align="center" src="../images/addTag/untick.png" />
+						<span v-text="item.text"></span>
 					</li>
 				</ul>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/immersed.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init({
+				beforeback: function(){
+					//获得列表界面的webview
+					var content = plus.webview.getWebviewById(viewId);
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(content,'addTag',{
+					  checkArr:checkArr
+					});
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			});
+			var viewId = null;
+			var checkArr = null;
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+			    viewId = self.viewId;
+			})
+			var vm = new Vue({
+	            el: '#content',
+	            data: {
+	                tagList:[],
+	                picked:false
+	            }
+	       	})
+			var add_tag = document.getElementById("add-tag");
+			var tagArr = [{text:'银行',checked:false},{text:'餐饮',checked:false},{text:'政府',checked:false},
+	                {text:'行业协会',checked:false},{text:'游戏',checked:false},{text:'ITO',checked:false},{text:'BPO',checked:false},
+	                {text:'开发游戏',checked:false}];
+			var confirmArr = [];
+			var confirmObj = [];
+			vm.tagList = tagArr;
+			add_tag.addEventListener('tap',function(e){
+				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+				var btnArray = ['取消', '确定'];
+				mui.prompt('请输入想创建的标签：', '银行', '创建新标签', btnArray, function(e) {
+					if (e.index == 1) {
+						var obj = {};
+						obj.text = e.value;
+						obj.checked = false;
+						tagArr.push(obj);
+						vm.tagList = tagArr;
+					}
+				})
+			})
+			//是否选中
+			mui('.add-tag-body').on('tap','li',function(){
+				var type = this.getAttribute('data-type');
+				var index = type - 1;
+				if(vm.tagList[index].checked == false){
+					vm.tagList[index].checked = true;
+					confirmArr.push(type)
+				}else{
+					vm.tagList[index].checked = false;
+					var num = selectArr(confirmArr,index+1);
+					confirmArr.splice(num, 1);
+				}
+			})
+			
+			
+			//点击确定
+			var header_right = document.getElementById("header-right");
+			var detailPage = plus.webview.getWebviewById(viewId);
+			header_right.addEventListener('tap',function(){
+				var confirm = confirmArr.sort();
+				checkArr = selectTag(tagArr,confirm);
+//				mui.fire(detailPage,'addTag',{
+//				  checkArr:checkArr
+//				});
+				mui.back();
+			})
+			function selectArr (arr,index){
+				for(var i=0;i<arr.length;i++){
+						if(arr[i] == index){
+							return i;
+						}
+					}
+				}
+			function selectTag(tagArr,confirm){
+				var arr = [];
+				for(var i=0;i<confirm.length;i++){
+					var index = confirm[i];
+					var obj = {};
+					obj.index = index;
+					obj.text = tagArr[index-1].text;
+					arr.push(obj)
+				}
+				return arr;
+			}
 		</script>
 	</body>
 

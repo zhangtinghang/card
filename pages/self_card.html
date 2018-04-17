@@ -151,9 +151,11 @@
 			.detail-item{
 				width: 20%;
 				display: block;
+				color: #46495b;
 			}
 			.detail-body{
 				width: 80%;
+				color: #2f303a;
 			}
 			.card-company {
 				height: 1.25rem;
@@ -193,14 +195,27 @@
 				background-color: rgba(0,0,0,0);
 				overflow: hidden;
 			}
-			
+			/*点击样式*/
+			.right-update:active{
+				opacity: 0.5;
+			}
+			.right-edit:active{
+				opacity: 0.5;
+			}
+			.tag-text:active{
+				opacity: 0.5;
+			}
+			.card-company:active{
+				/*background-color: rgba(220,220,220,.5);*/
+				opacity: .5;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="main-header" id="header">
-			<div class="header-left">
-				<img align="center" src="../images/back.png" /> 个人名片
+			<div class="header-left mui-action-back">
+				<img align="center" class="mui-action-back" src="../images/back.png" /> 个人名片
 			</div>
 			<div class="header-right">
 				<img class="right-update" align="center" src="../images/selfCard/synchronization.png" />
@@ -208,13 +223,10 @@
 			</div>
 		</header>
 		<div class="mui-content" id="content">
-
-			<div class="content-body">
-				<div class="body-bg"></div>
+			<div class="body-bg"></div>
+			<div class="content-body">			
 				<div class="title-avatar-bg">
-					<div class="title-avatar">
-						李
-					</div>
+					<div class="title-avatar" v-if="dataList.name" v-text="dataList.name.substring(0,1)"></div>
 				</div>
 				<div id="mui-slider-image" class="mui-slider mui-slider-image">
 				  <div class="mui-slider-group mui-slider-group-images">
@@ -238,8 +250,8 @@
 
 				<div class="card-anchor-bg">
 					<ul>
-						<li class="card-anchor anchor-active"></li>
-						<li class="card-anchor"></li>
+						<li class="card-anchor" :class="silder==true ?'anchor-active' : ''"></li>
+						<li class="card-anchor" :class="silder==true ?'':'anchor-active'"></li>
 					</ul>
 				</div>
 
@@ -250,14 +262,14 @@
 								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 									<div class="mui-scroll mui-scroll-tag">
 										<ul>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
+											<div v-for="tagItem in tag" class="tag-items-li" :class="tagItem.index | tagItem" v-text="tagItem.text"></div>
+											<!--<div class="tag-items-li tag-item-2">协会</div>
 											<div class="tag-items-li tag-item-3">软件</div>
 											<div class="tag-items-li tag-item-3">软件</div>
 											<div class="tag-items-li tag-item-3">软件</div>
 											<div class="tag-items-li tag-item-1">会员</div>
 											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
+											<div class="tag-items-li tag-item-3">软件</div>-->
 										</ul>
 									</div>
 								</div>
@@ -272,47 +284,105 @@
 				<div class="card-detail">
 					<ul>
 						<li><span class="detail-item">姓名</span>
-							<span class="detail-body">
+							<span class="detail-body" v-text="dataList.name">
 								李晓明
 							</span>
 						</li>
 						<li><span class="detail-item">职务</span>
-							<span class="detail-body">
+							<span class="detail-body" v-text="dataList.duty">
 								CEO
 							</span>
 						</li>
 						<li><span class="detail-item">手机</span>
 							<span class="detail-body">
-								<div>13565784536</div>
-								<div>13565784536</div>
+								<div v-text="dataList.workNum"></div>
+								<div v-if="dataList.officeNum" v-text="dataList.officeNum"></div>
+								<div v-if="dataList.officePhone" v-text="dataList.officePhone"></div>
 							</span>
 						</li>
 						<li><span class="detail-item">邮箱</span>
 							<span class="detail-body">
-								<div>LINSADDAD@QQ.COM</div>
-								<div>LINSADDAD@QQ.COM</div>
+								<div v-text="dataList.email"></div>
+								<div v-if="dataList.peoEmail" v-text="dataList.peoEmail"></div>
 							</span>
 						</li>
 						<li><span class="detail-item">地址</span>
-							<span class="detail-body">
-								成都市都江堰市青城山镇23号成都市都江堰市青城山镇23号成都市都江堰市青城山镇23号成都市都江堰市青城山镇23号成都市都江堰市青城山镇23号
-							</span>
+							<span class="detail-body" v-text="dataList.site"></span>
 						</li>
 					</ul>
 				</div>
 
 				<div class="card-company">
 					<div class="card-company-left">公司</div>
-					<div class="card-company-right"><span>米椒游戏有限公司</span><img align="center" src="../images/selfCard/next.png" /></div>
+					<div class="card-company-right"><span v-text="dataList.company"></span><img align="center" src="../images/selfCard/next.png" /></div>
 				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/immersed.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/indexedDB.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
-			document.getElementById('mui-slider-image').addEventListener('slide', function(event) {
-				console.log('切换选项卡',event.detail.slideNumber)
+			var database = null;
+			openDB();
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+			    database = JSON.parse(self.database);
+			    vm.dataList = database;
+			    vm.tag = database.tag;
+			})
+			Vue.filter('tagItem',function(value){
+				var num = Math.random();
+				console.log(parseInt(num*10/3+1))
+				return 'tag-item-'+parseInt(num*10/3+1);
+			})
+			var vm = new Vue({
+	            el: '#content',
+	            data: {
+	                dataList:'',
+	                silder:true,
+	                tag:[]
+	            }
+	       	})
+			//名片编辑
+			mui('.header-right').on('tap','.right-edit',function(){
+				openView.usuView('card_detail_edit.html','card_detail_edit');
+			})
+			//名片更新
+			mui('.header-right').on('tap','.right-update',function(){
+				
+			})
+			
+			
+			//公司详情
+			mui('.content-body').on('tap','.card-company',function(){
+				openView.usuView('company_detail.html','company_detail');
+			})
+			
+			var gallery = mui('#mui-slider-image');
+			gallery.slider({
+			  interval:0//自动轮播周期，若为0则不自动播放，默认为0；
 			});
+			document.getElementById('mui-slider-image').addEventListener('slide', function(event) {
+				if(event.detail.slideNumber == 0){
+					vm.silder = true;
+				}else{
+					vm.silder = false;
+				}
+			});
+			//标签添加
+			mui('.nav-tag').on('tap','.tag-text',function(){
+				openView.usuView('add_tag.html','add_tag',{viewId:'self_card'});
+			});
+			//添加标签
+			window.addEventListener('addTag',function(event){
+				 var checkArr = event.detail.checkArr;
+				 vm.tag = checkArr;
+				 //更新到数据库
+				 database.tag = checkArr;
+				 saveData('Cards',database);
+			})
 		</script>
 	</body>
 

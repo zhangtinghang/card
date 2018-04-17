@@ -13,9 +13,41 @@
       "images/index/add_card.png",
       "images/index/search.png",
       "images/index/call_to.png",
-      "images/index/company_infor.png"
+      "images/index/company_infor.png",
+      "pages/company.html"
     ],
-    "refer": [],
+    "refer": [
+      "pages/company.html",
+      "pages/my_self.html",
+      "pages/self_card.html"
+    ],
     "priority": 0
+  },
+  "pages/company.html": {
+    "refer": [
+      "pages/company_detail.html"
+    ],
+    "resources": []
+  },
+  "pages/my_self.html": {
+    "refer": [
+      "pages/company_visit_list.html",
+      "pages/self_detail.html",
+      "pages/card_detail_edit.html",
+      "pages/company_detail_edit.html"
+    ],
+    "resources": []
+  },
+  "pages/company_detail.html": {
+    "refer": [
+      "pages/add_tag.html",
+      "pages/card_detail_edit.html"
+    ],
+    "resources": []
+  },
+  "pages/self_card.html": {
+    "refer": [
+      "pages/company_detail.html"
+    ]
   }
 }

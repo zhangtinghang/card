@@ -6,19 +6,16 @@
 		<title>公司名片</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+		 <script src="html5plus://ready"></script> 
 		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/style.css" />
 		<style>
-			.content-body {
-				position: relative;
+			.content-body { 
 				padding-top: 50px;
 				padding-bottom: 2px;
-			}
-			
-			.body-bg {
-				top: 1.322rem;
+				position: relative;	
 			}
 			.tag-items{
 				width: 78%;
@@ -36,6 +33,7 @@
 				width: 40%;
 				min-width: 2.778rem !important;
 				min-height: 2.778rem !important;
+				background-color: rgba(0,0,0,0);
 			}
 			.body-content-mess{
 				width: 58%;
@@ -92,54 +90,57 @@
 				<div id="mui-scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll" id="mui-scroll">
 						<a class="mui-control-item mui-active" href="0">
-							推荐
+							全部
 						</a>
 						<a class="mui-control-item" href="1">
-							热点
+							银行
 						</a>
 						<a class="mui-control-item" href="2">
-							北京
+							餐饮
 						</a>
 						<a class="mui-control-item" href="3">
-							社会
+							政府
 						</a>
 						<a class="mui-control-item" href="4">
-							娱乐
+							行业协会
 						</a>
 						<a class="mui-control-item" href="5">
-							科技
+							游戏
 						</a>
 						<a class="mui-control-item" href="6">
-							科技
+							ITO
 						</a>
 						<a class="mui-control-item" href="7">
-							科技
+							BPO
+						</a>
+						<a class="mui-control-item" href="8">
+							KPO
+						</a>
+						<a class="mui-control-item" href="9">
+							开发游戏
 						</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="content-body">
-				<div class="body-bg" id="body-bg"></div>
+			<div class="content-body content-body-main">
+				<!--<div class="body-bg-main" id="body-bg"></div>-->
 
-				<div class="card-model">
+				<div class="card-model" v-for="item in dataList" @tap="open_detail(item)">
 					<nav class="nav-tag">
 						<div class="tag-items">
 							<div id="slider" class="mui-slider slider-card">
 								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 									<div class="mui-scroll mui-scroll-tag">
 										<ul>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
+											<div v-if="item.tag" class="tag-items-li" v-for="(tagItem ,index) in item.tag" :class="index | tagItemClass" v-text="tagItem.text"></div>
+											<!--<div class="tag-items-li tag-item-1">会员</div>-->
 										</ul>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="tag-text mui-ellipsis-1">10张名片</div>
+						<div class="tag-text mui-ellipsis-1"><span v-if="item.people" v-text="item.people.length"></span>张名片</div>
 					</nav>
 					<div class="body-content">
 						<div class="body-content-img">
@@ -149,210 +150,66 @@
 						</div>
 						<div class="body-content-mess">
 							<div class="company-card-text">
-								<div class="card-text-title mui-ellipsis-1">米椒科技有限公司</div>
+								<div class="card-text-title mui-ellipsis-1" v-text="item.companyName"></div>
 								<div class="card-text-body mui-ellipsis-1">
 									<img align="center" src="../images/index/place.png" />
-									<span>成都市都江堰市青城山</span>
+									<span v-text="item.companyRegSite"></span>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="card-model">
-					<nav class="nav-tag">
-						<div class="tag-items">
-							<div id="slider" class="mui-slider slider-card">
-								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-									<div class="mui-scroll mui-scroll-tag">
-										<ul>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tag-text mui-ellipsis-1">10张名片</div>
-					</nav>
-					<div class="body-content">
-						<div class="body-content-img">
-							<div class="content-img-avatar">
-								<img src="" />
-							</div>
-						</div>
-						<div class="body-content-mess">
-							<div class="company-card-text">
-								<div class="card-text-title mui-ellipsis-1">米椒科技有限公司</div>
-								<div class="card-text-body mui-ellipsis-1">
-									<img align="center" src="../images/index/place.png" />
-									<span>成都市都江堰市青城山</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="card-model">
-					<nav class="nav-tag">
-						<div class="tag-items">
-							<div id="slider" class="mui-slider slider-card">
-								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-									<div class="mui-scroll mui-scroll-tag">
-										<ul>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tag-text mui-ellipsis-1">10张名片</div>
-					</nav>
-					<div class="body-content">
-						<div class="body-content-img">
-							<div class="content-img-avatar">
-								<img src="" />
-							</div>
-						</div>
-						<div class="body-content-mess">
-							<div class="company-card-text">
-								<div class="card-text-title mui-ellipsis-1">米椒科技有限公司</div>
-								<div class="card-text-body mui-ellipsis-1">
-									<img align="center" src="../images/index/place.png" />
-									<span>成都市都江堰市青城山</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="card-model">
-					<nav class="nav-tag">
-						<div class="tag-items">
-							<div id="slider" class="mui-slider slider-card">
-								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-									<div class="mui-scroll mui-scroll-tag">
-										<ul>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tag-text mui-ellipsis-1">10张名片</div>
-					</nav>
-					<div class="body-content">
-						<div class="body-content-img">
-							<div class="content-img-avatar">
-								<img src="" />
-							</div>
-						</div>
-						<div class="body-content-mess">
-							<div class="company-card-text">
-								<div class="card-text-title mui-ellipsis-1">米椒科技有限公司</div>
-								<div class="card-text-body mui-ellipsis-1">
-									<img align="center" src="../images/index/place.png" />
-									<span>成都市都江堰市青城山</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="card-model">
-					<nav class="nav-tag">
-						<div class="tag-items">
-							<div id="slider" class="mui-slider slider-card">
-								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-									<div class="mui-scroll mui-scroll-tag">
-										<ul>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tag-text mui-ellipsis-1">10张名片</div>
-					</nav>
-					<div class="body-content">
-						<div class="body-content-img">
-							<div class="content-img-avatar">
-								<img src="" />
-							</div>
-						</div>
-						<div class="body-content-mess">
-							<div class="company-card-text">
-								<div class="card-text-title mui-ellipsis-1">米椒科技有限公司</div>
-								<div class="card-text-body mui-ellipsis-1">
-									<img align="center" src="../images/index/place.png" />
-									<span>成都市都江堰市青城山</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="card-model">
-					<nav class="nav-tag">
-						<div class="tag-items">
-							<div id="slider" class="mui-slider slider-card">
-								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-									<div class="mui-scroll mui-scroll-tag">
-										<ul>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tag-text mui-ellipsis-1">10张名片</div>
-					</nav>
-					<div class="body-content">
-						<div class="body-content-img">
-							<div class="content-img-avatar">
-								<img src="" />
-							</div>
-						</div>
-						<div class="body-content-mess">
-							<div class="company-card-text">
-								<div class="card-text-title mui-ellipsis-1">米椒科技有限公司</div>
-								<div class="card-text-body mui-ellipsis-1">
-									<img align="center" src="../images/index/place.png" />
-									<span>成都市都江堰市青城山</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/immersed.js"></script>
 		<script src="../js/mui.pullToRefresh.js"></script>
 		<script src="../js/mui.pullToRefresh.material.js"></script>
 		<script type="text/javascript" src="../js/mui.slider.js"></script>
+		<script type="text/javascript" src="../js/indexedDB.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
+			mui.plusReady(function () {})
+			
+			Vue.filter('tagItemClass',function(value){
+				var num = value+1;
+				if(num >4){
+					num = 20;
+				}
+				return 'tag-item-'+num;
+			})
+			var vm = new Vue({
+	            el: '.content-body-main',
+	            data: {
+	                dataList:'',
+	                tag:''
+	            }
+	      });
+	      
+        	openDB(function(data){
+				if(data.type == true){
+					searchData('Company',function(dataArr){
+            			vm.dataList = dataArr;
+            			vm.tag = dataArr.tag;
+           	 		})  
+				}else{
+					plus.nativeUI.toast('获取数据失败！')
+				}
+			});
+			//横向切换
 			mui('.mui-scroll').on('tap', 'a', function() {
 				console.log('开始')
+			})
+			//卡片点击切换
+			function open_detail(data){
+		    	var database = JSON.stringify(data);
+		    	openView.usuView('company_detail.html','company_detail',{database:database,type:'company'});
+		    }
+			
+			//跳转添加名片
+			mui('#header').on('tap','.header-addIcon',function(){
+				openView.usuView('company_detail_edit.html','company_detail_edit',{type:true});
 			})
 		</script>
 	</body>

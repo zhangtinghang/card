@@ -51,6 +51,9 @@
 				display: inline-flex;
 				align-items: center;
 			}
+			.edit-left-box-bottom{
+				border-bottom: none !important;
+			}
 			
 			.edit-left-box input {
 				padding: 0;
@@ -122,7 +125,8 @@
 				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
 				border-radius: 0.417rem;
 			}
-			.body-list{
+			
+			.body-list {
 				margin-top: 0.375rem;
 			}
 			
@@ -158,17 +162,20 @@
 				align-items: center;
 				overflow: hidden;
 			}
-			.add-edit img{
+			
+			.add-edit img {
 				width: 0.444rem;
 				height: 0.444rem;
 				margin: 0 0.583rem;
 			}
-			.add-edit-mess{
+			
+			.add-edit-mess {
 				font-size: 0.389rem;
 				color: #949398;
 				width: 100%;
 			}
 			/*标签*/
+			
 			.body-title-tag {
 				height: 1.25rem;
 				margin: 0 auto;
@@ -202,245 +209,349 @@
 				width: 0.444rem;
 				height: 0.444rem;
 			}
+			.intro{
+				width: 100%;
+				margin-bottom: 0;
+				min-height: 0.694rem;
+				font-size: 0.389rem;
+				border: none;
+				border-radius: 0;
+				margin: 0.138rem;
+			}
+			/*点击样式*/
+			
+			.header-right:active {
+				opacity: 0.5;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="main-header" id="header">
-			<div class="header-left">
-				<img align="center" src="../images/back.png" /> 公司编辑
+			<div class="header-left mui-action-back">
+				<img align="center" class="mui-action-back" src="../images/back.png" /> 公司编辑
 			</div>
-			<div class="header-right">
+			<div id="header-right" class="header-right">
 				完成
 			</div>
 		</header>
 		<div class="mui-content" id="content">
 			<div class="body-bg"></div>
-			<!--轮播图-->
-			<div id="mui-slider-image" class="mui-slider mui-slider-image">
-				<div class="mui-slider-group mui-slider-group-images">
-					<!--第一个内容区容器-->
-					<div class="mui-slider-item mui-slider-item-images">
-						<!-- 具体内容 -->
-						<div class="body-title">
+			<div class="content-body">
+				<!--轮播图-->
+				<div id="mui-slider-image" class="mui-slider mui-slider-image">
+					<div class="mui-slider-group mui-slider-group-images">
+						<!--第一个内容区容器-->
+						<div class="mui-slider-item mui-slider-item-images">
+							<!-- 具体内容 -->
+							<div class="body-title">
 
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="body-list">
-				<!--公司-->
-				<div class="edit-bg">
-					<ul>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">公司</div>
-								<div class="edit-right">米椒游戏有限公司</div>
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/company_edit.png" />
-							</div>
-						</li>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">地址</div>
-								<div class="edit-right">成都市都江堰市青城山镇东软大道一号</div>
-								<!--<input type="text" id="" value="海外游戏洽谈" />-->
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/company_address.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">位置</div>
-								<div class="edit-right">成都东软学院A6-201</div>
-								<!--<input type="text" id="" value="海外游戏洽谈" />-->
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/company_address.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-					</ul>
-				</div>
-				
-				<!--标签-->
-				<div class="body-title-tag">
-					<nav class="nav-tag">
-						<div class="tag-items">
-							<div id="slider" class="mui-slider slider-card">
-								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-									<div class="mui-scroll mui-scroll-tag">
-										<ul>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-1">会员</div>
-											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-										</ul>
+				<div class="body-list">
+					<!--公司-->
+					<div class="edit-bg">
+						<ul>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">公司</div>
+									<input type="text" v-if="edit" id="" name="companyName" v-model="companyName" value="米椒游戏有限公司" />
+									<div v-else class="edit-right">米椒游戏有限公司</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/add_tel_num.png" />						
+								</div>
+							</li>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">地址</div>
+									<input type="text" v-if="edit" name="companySite" v-model="companySite" value="成都市都江堰市青城山镇东软大道一号" />
+									<div v-else class="edit-right">成都市都江堰市青城山镇东软大道一号</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/company_address.png" />						
+								</div>
+							</li>
+							<li>
+								<div class="edit-left-box edit-left-box-bottom">
+									<div class="edit-left">位置</div>
+									<input type="text" v-if="edit" name="companyPlace" v-model="companyPlace" value="成都东软学院A6-201" />
+									<div v-else class="edit-right">成都东软学院A6-201</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/company_address.png" />						
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<!--标签-->
+					<div class="body-title-tag">
+						<nav class="nav-tag">
+							<div class="tag-items">
+								<div id="slider" class="mui-slider slider-card">
+									<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+										<div class="mui-scroll mui-scroll-tag">
+											<ul>
+												<div v-for="tagItem in tag" class="tag-items-li" :class="tagItem.index | tagItem" v-text="tagItem.text"></div>
+												<!--<div class="tag-items-li tag-item-2">协会</div>
+												<div class="tag-items-li tag-item-3">软件</div>
+												<div class="tag-items-li tag-item-3">软件</div>
+												<div class="tag-items-li tag-item-3">软件</div>
+												<div class="tag-items-li tag-item-1">会员</div>
+												<div class="tag-items-li tag-item-2">协会</div>
+												<div class="tag-items-li tag-item-3">软件</div>-->
+											</ul>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="tag-text">
-							<img src="../images/selfCard/add_label_to.png" />
-						</div>
-					</nav>
-				</div>
-				
-				<!--公司简介-->
-				<div class="edit-bg">
-					<ul>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">公司简介</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+							<div class="tag-text">
+								<img src="../images/selfCard/add_label_to.png" />
 							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/company/edit.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-					</ul>
-				</div>
+						</nav>
+					</div>
 
-				
+					<!--公司简介-->
+					<div class="edit-bg">
+						<ul>
+							<li>
+								<div class="edit-left-box edit-left-box-bottom">
+									<div class="edit-left">公司简介</div>
+									<!--<input type="text" v-if="edit" name="name" v-model="name" value="公司成立于1983" />-->
+									<textarea class="intro" v-if="edit" name="companyIntro" v-model="companyIntro" cols="5"></textarea>
+									<div v-else class="edit-right">公司成立于1983</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/company/edit.png" />						
+								</div>
+							</li>
+						</ul>
+					</div>
 
-				<!--企业-->
-				<div class="edit-bg">
-					<ul>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">企业类别</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="游戏开发" />
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/aite.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">企业性质</div>
-								<div class="edit-right">中外合资企业</div>
-								<!--<input type="text" id="" value="张晓军" />-->
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/aite.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">涉及领域</div>
-								<div class="edit-right">游戏外包、游戏开发</div>
-								<!--<input type="text" id="" value="张晓军" />-->
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/aite.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">外包类型</div>
-								<div class="edit-right">游戏外包、手游推广</div>
-								<!--<input type="text" id="" value="张晓军" />-->
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/aite.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-					</ul>
-				</div>
+					<!--企业-->
+					<div class="edit-bg">
+						<ul>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">企业类别</div>
+									<input type="text" v-if="edit" name="companyEnterprise" v-model="companyEnterprise" value="游戏开发" />
+									<div v-else class="edit-right">游戏开发</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/aite.png" />						
+								</div>
+							</li>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">企业性质</div>
+									<input type="text" v-if="edit" name="companyNature" v-model="companyNature" value="中外合资企业" />
+									<div v-else class="edit-right">中外合资企业</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/aite.png" />						
+								</div>
+							</li>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">涉及领域</div>
+									<input type="text" v-if="edit" name="companyInvolve" v-model="companyInvolve" value="游戏外包、游戏开发" />
+									<div v-else class="edit-right">游戏外包、游戏开发</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/aite.png" />						
+								</div>
+							</li>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">外包类型</div>
+									<input type="text" v-if="edit" name="companyEpiboly" v-model="companyEpiboly" value="游戏外包、手游推广" />
+									<div v-else class="edit-right">游戏外包、手游推广</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/aite.png" />						
+								</div>
+							</li>
+						</ul>
+					</div>
 
-				<!--注册-->
-				<div class="edit-bg">
-					<ul>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">注册时间</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="2018/02/17" />
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/company_edit.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">注册地点</div>
-								<div class="edit-right">成都市都江堰市</div>
-								<!--<input type="text" id="" value="张晓军" />-->
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/company_edit.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-					</ul>
-				</div>
-				
-				<!--公司网址-->
-				<div class="edit-bg">
-					<ul>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">公司网址</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="www.baidu.com" />
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/compant_net.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">位置</div>
-								<div class="edit-right">成都东软学院</div>
-								<!--<input type="text" id="" value="张晓军" />-->
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/compant_net.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-					</ul>
-				</div>
-				
-				<!--人员规模-->
-				<div class="edit-bg">
-					<ul>
-						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">人员规模</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="200人" />
-							</div>
-							<div class="edit-icon">
-								<img align="center" src="../images/card/compant_net.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
-							</div>
-						</li>
-					</ul>
-				</div>
+					<!--注册-->
+					<div class="edit-bg">
+						<ul>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">注册时间</div>
+									<input type="text" v-if="edit" name="companyRegister" v-model="companyRegister" value="2018/02/17" />
+									<div v-else class="edit-right">2018/02/17</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/company_edit.png" />						
+								</div>
+							</li>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">注册地点</div>
+									<input type="text" v-if="edit" name="companyRegSite" v-model="companyRegSite" value="成都市都江堰市" />
+									<div v-else class="edit-right">成都市都江堰市</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/company_edit.png" />						
+								</div>
+							</li>
+						</ul>
+					</div>
 
+					<!--公司网址-->
+					<div class="edit-bg">
+						<ul>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">公司网址</div>
+									<input type="text" v-if="edit" name="companyURL" v-model="companyURL" value="www.baidu.com" />
+									<div v-else class="edit-right">www.baidu.com</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/compant_net.png" />						
+								</div>
+							</li>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">其他网址</div>
+									<input type="text" v-if="edit" name="companyOtherURL" v-model="companyOtherURL" value="www.baidu.com" />
+									<div v-else class="edit-right">www.baidu.com</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/compant_net.png" />						
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<!--人员规模-->
+					<div class="edit-bg">
+						<ul>
+							<li>
+								<div class="edit-left-box">
+									<div class="edit-left">人员规模</div>
+									<input type="text" v-if="edit" name="companyPeople" v-model="companyPeople" value="200人" />
+									<div v-else class="edit-right">200人</div>
+								</div>
+								<div class="edit-icon">
+									<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+									<img align="center" v-else src="../images/card/compant_net.png" />						
+								</div>
+							</li>
+						</ul>
+					</div>
+
+				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/indexedDB.js" ></script>
+		<script type="text/javascript" src="../js/uuid.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			Vue.filter('tagItem',function(value){
+				var num = Math.random();
+				console.log(parseInt(num*10/3+1))
+				return 'tag-item-'+parseInt(num*10/3+1);
+			})
+			var vm = new Vue({
+	            el: '#content',
+	            data: {
+	                companyName:'米椒游戏有限公司',
+					companySite:'成都市都江堰市青城山镇东软大道一号',
+					companyPlace:'成都东软学院A6-201',
+					companyIntro:'公司成立于1983',
+					companyEnterprise:'游戏开发',
+					companyNature:'中外合资企业',
+					companyInvolve:'游戏外包、游戏开发',
+					companyEpiboly:'游戏外包、手游推广',
+					companyRegister:'2018/02/17',
+					companyRegSite:'成都市都江堰市',
+					companyURL:'www.baidu.com',
+					companyOtherURL:'www.baidu.com',
+					companyPeople:'200人',
+	                edit:false,
+	                tag:[]
+	            },
+	            mounted: function(){
+	            	var that = this;
+	              	openDB();
+	                // indexedDB.deleteDatabase('usersDB');
+	                mui.plusReady(function () {
+						var self = plus.webview.currentWebview();
+					    vm.edit = self.type;
+					    //点击完成
+					    var header_right = document.getElementById("header-right");
+					    header_right.addEventListener('tap',function(){
+		                        var param = {
+									create_time:Date.parse(new Date()),
+									name:that.companyName,
+									creator:'',
+									modifier:'',
+									mod_time:Date.parse(new Date()),
+									delete:false,
+									local_data:{},
+						            companyName:that.companyName,
+									companySite:that.companySite,
+									companyPlace:that.companyPlace,
+									companyIntro:that.companyIntro,
+									companyEnterprise:that.companyEnterprise,
+									companyNature:that.companyNature,
+									companyInvolve:that.companyInvolve,
+									companyEpiboly:that.companyEpiboly,
+									companyRegister:that.companyRegister,
+									companyRegSite:that.companyRegSite,
+									companyURL:that.companyURL,
+									companyOtherURL:that.companyOtherURL,
+									companyPeople:that.companyPeople,
+									tag:vm.tag,
+									people:[]
+		                        }
+		                        param.uuid = uuid();
+		                        saveData('Company',param);
+//		                        this.getData();
+//		                        this.username = this.age = this.email = '';
+					    })
+					    
+					    //添加标签跳转
+					    //标签添加
+						mui('.nav-tag').on('tap','.tag-text',function(){
+							openView.usuView('add_tag.html','add_tag',{viewId:'company_detail_edit'});
+						});
+						//添加标签
+						window.addEventListener('addTag',function(event){
+							 var checkArr = event.detail.checkArr;
+							 console.log(JSON.stringify(checkArr))
+							 vm.tag = checkArr;
+							 //更新到数据库
+//							 database.tag = checkArr;
+//							 saveData('Cards',database);
+						})
+					});
+	            }
+	        })
 		</script>
 	</body>
+
 </html>

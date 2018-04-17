@@ -14,6 +14,7 @@
 			.mui-content {
 				padding: 0 5%;
 				padding-top: 2.322rem;
+				padding-bottom: 0.277rem;
 			}
 			
 			.edit-bg {
@@ -41,11 +42,12 @@
 			}
 			.edit-left-box{
 				width: 100%;
-				padding-left:5%;
+				margin-left:5%;
 				border-bottom: 0.028rem solid #f1f1f1;
 				display: inline-flex;
 				align-items: center;
 			}
+			
 			.edit-left-box input{
 				padding: 0;
 				margin: 0;
@@ -91,15 +93,19 @@
 				height: 0.389rem;
 				margin-top: -0.038rem;
 			}
+		/*点击效果*/
+		.header-right:active{
+			opacity: 0.5;
+		}
 		</style>
 	</head>
 
 	<body>
 		<header class="main-header" id="header">
-			<div class="header-left">
-				<img align="center" src="../images/back.png" /> 记录详情
+			<div class="header-left mui-action-back">
+				<img align="center" class="mui-action-back" src="../images/back.png" /> 记录详情
 			</div>
-			<div class="header-right">
+			<div id="header-right" class="header-right">
 				保存
 			</div>
 		</header>
@@ -111,23 +117,24 @@
 				<div class="edit-bg">
 					<ul>
 						<li>
-							<div class="edit-left-box">
+							<div class="edit-left-box" id="box-conpany">
 								<div class="edit-left">公司</div>
-								<div class="edit-right">米椒游戏公司</div>
+								<div class="edit-right" v-text="visitCompany"></div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/company/company_edit.png" />
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/company_edit.png" />						
 							</div>
 						</li>				
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">拜访对象</div>
-								<div class="edit-right">张晓军</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+								<input type="text" v-if="edit" name="visitName" v-model="visitName" value="张晓军" />
+								<div v-else class="edit-right">张晓军</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/company/person.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/company/person.png" />						
 							</div>
 						</li>
 					</ul>
@@ -139,21 +146,23 @@
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">拜访时间</div>
-								<div class="edit-right">2018/03/23</div>
+								<input type="text" v-if="edit" name="visitTime" v-model="visitTime" value="2018/03/23" />
+								<div v-else class="edit-right">2018/03/23</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/company/day.png" />
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/company/day.png" />
 							</div>
 						</li>				
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">拜访目的</div>
-								<div class="edit-right">海外游戏洽谈</div>
-								<!--<input type="text" id="" value="海外游戏洽谈" />-->
+								<input type="text" v-if="edit" name="visitGoal" v-model="visitGoal" value="海外游戏洽谈" />
+								<div v-else class="edit-right">海外游戏洽谈</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/company/person.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/company/person.png" />
 							</div>
 						</li>
 					</ul>
@@ -165,23 +174,23 @@
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">参访人员</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美" />
+								<input type="text" v-if="edit" name="visitPeople" v-model="visitPeople" value="李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美" />
+								<div v-else class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/company/person.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/company/person.png" />
 							</div>
 						</li>				
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">记录人员</div>
-								<div class="edit-right">张晓军</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+								<input type="text" v-if="edit" name="visitRecord" v-model="visitRecord" value="饭美美" />
+								<div v-else class="edit-right">饭美美</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/company/person.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/company/person.png" />
 							</div>
 						</li>
 					</ul>
@@ -200,8 +209,8 @@
 						</li>				
 						<li>
 							<div class="edit-left-box">
-								<div class="edit-left-text">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</div>
-								<!--<textarea rows="3" class="edit-left-edit">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</textarea>-->
+								<textarea rows="3" v-if="edit" name="visitSummary" v-model="visitSummary" class="edit-left-edit">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</textarea>
+								<div v-else class="edit-left-text">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</div>
 							</div>
 						</li>
 					</ul>
@@ -220,8 +229,8 @@
 						</li>				
 						<li>
 							<div class="edit-left-box">
-								<div class="edit-left-text">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</div>
-								<!--<textarea rows="3" class="edit-left-edit">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</textarea>-->
+								<textarea rows="3" v-if="edit" name="visitOver" v-model="visitOver" class="edit-left-edit"></textarea>
+								<div v-else class="edit-left-text"></div>
 							</div>
 						</li>
 					</ul>
@@ -240,8 +249,8 @@
 						</li>				
 						<li>
 							<div class="edit-left-box">
-								<div class="edit-left-text">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</div>
-								<!--<textarea rows="3" class="edit-left-edit">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</textarea>-->
+								<textarea rows="3" v-if="edit" name="visitRest" v-model="visitRest" class="edit-left-edit">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</textarea>
+								<div v-else class="edit-left-text">对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</div>
 							</div>
 						</li>
 					</ul>
@@ -253,8 +262,77 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/uuid.js" ></script>
+		<script type="text/javascript" src="../js/indexedDB.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			
+			var vm = new Vue({
+	            el: '#content',
+	            data: {
+	            	visitCompany:'米椒公司',
+					visitName:'张晓军',
+					visitTime:'2018/03/23',
+					visitGoal:'海外游戏洽谈',
+					visitPeople:'李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美',
+					visitRecord:'饭美美',
+					visitSummary:'对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。',
+					visitOver:'对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。',
+					visitRest:'对游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。', 
+	                edit:false
+	            },
+	            mounted:function(){
+	            	var that = this;
+	            	var type = null;
+	            	var companyUid = null;
+	            	openDB();
+	            	mui.plusReady(function () {
+					    var self = plus.webview.currentWebview();
+					    vm.edit = self.type;
+					    companyUid = self.companyUid;
+					})
+	            	//点击保存
+	            	var header_right = document.getElementById("header-right");
+	            	header_right.addEventListener('tap',function(e){
+		            	var param = {
+		            		owner_uuid:companyUid,
+			                creator:'',
+			                create_time:Date.parse(new Date()),
+			                modifier:'',
+			                mod_time:Date.parse(new Date()),
+			                local_data:'',
+			                visitCompany:that.visitCompany,
+							visitName:that.visitName,
+							visitTime:that.visitTime,
+							visitGoal:that.visitGoal,
+							visitPeople:that.visitPeople,
+							visitRecord:that.visitRecord,
+							visitSummary:that.visitSummary,
+							visitOver:that.visitOver,
+							visitRest:that.visitRest
+		            	}
+		            	param.uuid = uuid();
+		                saveData('Visit',param);
+		                mui.back();
+	            	})
+
+	            	//获取公司信息
+				    var box_conpany = document.getElementById("box-conpany");
+				    box_conpany.addEventListener('tap',function(){
+				    	openView.usuView('company_list.html','company_list',{viewId:'company_visit_edit'});
+				    })
+				    //接收公司信息
+				    window.addEventListener('addCompany',function(e){
+				    	var checkArr = e.detail.checkArr;
+				    	console.log(JSON.stringify(checkArr))
+				    	that.company = checkArr.index;
+				    	company_uuid = checkArr.uuid;
+				    	company_name = checkArr.index;
+				    })
+	            }
+	     });
 		</script>
 	</body>
 

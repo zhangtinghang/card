@@ -16,6 +16,10 @@
 				padding-top: 2.322rem;
 				padding-bottom: 0.5rem;
 			}
+			.content_body{
+				position: relative;
+				z-index: 9;
+			}
 			
 			.edit-bg {
 				position: relative;
@@ -97,8 +101,8 @@
 			}
 			
 			.edit-icon img {
-				width: 0.444rem;
-				height: 0.389rem;
+				width: 0.5rem;
+				height: 0.5rem;
 				margin-top: -0.038rem;
 			}
 			/*图片轮播样式调整*/
@@ -170,21 +174,31 @@
 				margin: 0;
 				border: none;
 			}*/
+			
+			/*点击样式*/
+			.header-left:active{
+				opacity: 0.5;
+			}
+			.header-right:active{
+				opacity: 0.5;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="main-header" id="header">
-			<div class="header-left">
-				<img align="center" src="../images/back.png" /> 名片编辑
+			<div class="header-left mui-action-back">
+				<img align="center" class="mui-action-back" src="../images/back.png" /> 名片编辑
 			</div>
-			<div class="header-right">
+			<div id="header-right" class="header-right">
 				完成
 			</div>
 		</header>
-		<div class="mui-content" id="content">
+		
+		<div class="mui-content" id="content">	
 			<div class="body-bg"></div>
-			<!--轮播图-->
+			<div class="content_body">
+				<!--轮播图-->
 			<div id="mui-slider-image" class="mui-slider mui-slider-image">
 				<div class="mui-slider-group mui-slider-group-images">
 					<!--第一个内容区容器-->
@@ -218,12 +232,12 @@
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">姓名</div>
-								<div class="edit-right">张晓军</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+								<input type="text" v-if="edit" id="" name="name" v-model="name" value="张晓军" />
+								<div v-else class="edit-right">张晓军</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/company/person.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/company/person.png" />
 							</div>
 						</li>
 					</ul>
@@ -235,32 +249,34 @@
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">工作手机</div>
-								<div class="edit-right">18285678973</div>
+								<input type="text" v-if="edit" id="" name="workNum" v-model="workNum" value="17780632658" />
+								<div v-else class="edit-right">17780632658</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/add_tel_num.png" />
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/add_tel_num.png" />
 							</div>
 						</li>
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">办公座机</div>
-								<div class="edit-right">028-2838467</div>
-								<!--<input type="text" id="" value="海外游戏洽谈" />-->
+								<input type="text"  v-if="edit" name="officeNum" v-model="officeNum" value="028-2838467" />
+								<div v-else class="edit-right">028-2838467</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/add_tel_num.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/add_tel_num.png" />								
 							</div>
 						</li>
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">办公手机</div>
-								<div class="edit-right">18285678973</div>
-								<!--<input type="text" id="" value="海外游戏洽谈" />-->
+								<input type="text"  v-if="edit" name="officePhone" v-model="officePhone" value="159875663214" />
+								<div v-else class="edit-right">159875663214</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/add_tel_num.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/add_tel_num.png" />						
 							</div>
 						</li>
 					</ul>
@@ -272,23 +288,23 @@
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">工作邮箱</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="1041415157@qq.com" />
+								<input type="email" v-if="edit" name="email" v-model="email" value="1041415157@qq.com" />
+								<div v-else class="edit-right">1041415157@qq.com</div>						
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/aite.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/aite.png" />
 							</div>
 						</li>
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">私人邮箱</div>
-								<div class="edit-right">zth1041415167@outlook.com</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+								<input type="text" v-if="edit" name="peoEmail" v-model="peoEmail" value="zth1041415167@outlook.com" />
+								<div v-else class="edit-right">zth1041415167@outlook.com</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/aite.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/aite.png" />
 							</div>
 						</li>
 					</ul>
@@ -298,25 +314,26 @@
 				<div class="edit-bg">
 					<ul>
 						<li>
-							<div class="edit-left-box">
-								<div class="edit-left">公司</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="米椒游戏有限公司" />
+							<div class="edit-left-box" id="box-conpany">
+									<div class="edit-left">公司</div>
+									<!--<input type="text" v-if="edit" name="company" v-model="company" value="米椒游戏有限公司" />-->
+									<div class="edit-right" v-text="company"></div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/company_edit.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/company_edit.png" />
 							</div>
 						</li>
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">职务</div>
-								<div class="edit-right">CEO</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+								<input type="text" v-if="edit" name="duty" v-model="duty" value="CEO" />
+								<div v-else class="edit-right">CEO</div>
+								
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/company_edit.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/company_edit.png" />
 							</div>
 						</li>
 					</ul>
@@ -328,23 +345,24 @@
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">地址</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="成都市都江堰市青城山镇东软大道一号" />
+								<input type="text" v-if="edit" name="site" v-model="site" value="" />				
+								<div v-else class="edit-right">成都市都江堰市青城山镇东软大道一号</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/company_address.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/company_address.png" />
 							</div>
 						</li>
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">位置</div>
-								<div class="edit-right">成都东软学院A5-320</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+								<input type="text" v-if="edit" name="location" v-model="location" value="成都东软学院A5-320" />
+								<div v-else class="edit-right">成都东软学院A5-320</div>
+								
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/company_address.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/company_address.png" />
 							</div>
 						</li>
 					</ul>
@@ -356,23 +374,23 @@
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">工作传真</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="86519-85123654" />
+								<input type="text" v-if="edit" name="workFax" v-model="workFax" value="86519-85123654" />
+								<div v-else class="edit-right">86519-85123654</div>			
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/fax.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/fax.png" />
 							</div>
 						</li>
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">私人传真</div>
-								<div class="edit-right">8578-74631564454561</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+								<input type="text" v-if="edit" name="peoFax" v-model="peoFax" value="8578-74631564454561" />								
+								<div v-else class="edit-right">8578-74631564454561</div>
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/fax.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/fax.png" />
 							</div>
 						</li>
 					</ul>
@@ -384,23 +402,23 @@
 						<li>
 							<div class="edit-left-box">
 								<div class="edit-left">公司网址</div>
-								<!--<div class="edit-right">李晓华、何俊、张萌、饭美美、李晓华、何俊、张萌、饭美美</div>-->
-								<input type="text" id="" value="www.baidu.com" />
+								<input type="text" v-if="edit" name="intelURL" v-model="intelURL" value="www.baidu.com" />
+								<div v-else class="edit-right">www.baidu.com</div>						
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/compant_net.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/compant_net.png" />
 							</div>
 						</li>
 						<li>
 							<div class="edit-left-box">
-								<div class="edit-left">位置</div>
-								<div class="edit-right">成都东软学院</div>
-								<!--<input type="text" id="" value="张晓军" />-->
+								<div class="edit-left">公司位置</div>
+								<input type="text" v-if="edit" name="companyLocal" v-model="companyLocal" value="张晓军" />
+								<div v-else class="edit-right">成都东软学院</div>						
 							</div>
 							<div class="edit-icon">
-								<img align="center" src="../images/card/compant_net.png" />
-								<!--<img class="delete-btn" align="center" src="../images/company/del.png" />-->
+								<img class="delete-btn" v-if="edit" align="center" src="../images/company/del.png" />
+								<img align="center" v-else src="../images/card/compant_net.png" />
 							</div>
 						</li>
 					</ul>
@@ -414,11 +432,93 @@
 				<!--<input type="text" placeholder="添加其他信息" id="" value="" />-->
 			</div>
 
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript" src="../js/indexedDB.js" ></script>
+		<script type="text/javascript" src="../js/uuid.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			
+			var vm = new Vue({
+	            el: '#content',
+	            data: {
+	                name:'张三',
+	                workNum:'134564987',
+	                officeNum:'258764587',
+					officePhone:'45649879',
+					email:'12346749@qq.com',
+					peoEmail:'12346749@qq.com',
+					company:'密教有下达公公司',
+					duty:'CEO',
+					site:'成都动员',
+					location:'成都哦当啊',
+					workFax:'564-313211',
+					peoFax:'1236-1321312',
+					intelURL:'www.baidu.com',
+					companyLocal:'casdaweq',
+	                edit:false
+	            },
+	            mounted: function(){
+	            	var that = this;
+	              	openDB();
+	                // indexedDB.deleteDatabase('usersDB');
+	                mui.plusReady(function () {
+						var self = plus.webview.currentWebview();
+					    vm.edit = self.type;
+					    var company_uuid = '';
+					    var company_name = '';
+					    //点击确定
+					    var header_right = document.getElementById("header-right");
+					    header_right.addEventListener('tap',function(){
+		                        var param = {
+									create_time:Date.parse(new Date()),
+									name:that.name,
+									company_uuid:company_uuid,
+									company_name:company_name,
+									creator:'',
+									modifier:'',
+									mod_time:Date.parse(new Date()),
+									delete:false,
+									local_data:{},
+						            workNum:that.workNum,
+						            officeNum:that.officeNum,
+									officePhone:that.officePhone,
+									email:that.email,
+									peoEmail:that.peoEmail,
+									company:that.company,
+									duty:that.duty,
+									site:that.site,
+									location:that.location,
+									workFax:that.workFax,
+									peoFax:that.peoFax,
+									intelURL:that.intelURL,
+									companyLocal:that.companyLocal,
+									tag:[]
+		                        }
+		                        param.uuid = uuid();
+		                        saveData('Cards',param);
+//		                        this.getData();
+//		                        this.username = this.age = this.email = '';
+					    })
+					    //获取公司信息
+					    var box_conpany = document.getElementById("box-conpany");
+					    box_conpany.addEventListener('tap',function(){
+					    	openView.usuView('company_list.html','company_list',{viewId:'card_detail_edit'});
+					    })
+					    //接收公司信息
+					    window.addEventListener('addCompany',function(e){
+					    	var checkArr = e.detail.checkArr;
+					    	that.company = checkArr.index;
+					    	company_uuid = checkArr.uuid;
+					    	company_name = checkArr.index;
+					    })
+					});
+	            }
+	        })
 		</script>
 	</body>
 </html>

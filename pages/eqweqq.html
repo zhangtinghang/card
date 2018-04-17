@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<pre name="code" class="html"><!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -26,7 +26,6 @@
 	  });
 	var driving2 = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});    //驾车实例
 	driving2.search(myP1, myP2);    //显示一条公交线路
-
 	window.run = function (){
 		var driving = new BMap.DrivingRoute(map);    //驾车实例
 		driving.search(myP1, myP2);
@@ -37,7 +36,8 @@
 			var paths = pts.length;    //获得有几个点
 			console.log(paths) 
 			//获取坐标点
-			console.log(JSON.stringify(pts))
+			//传递给安卓
+			 window.jsInterface.getCallback(JSON.stringify(pts));  
 			var carMk = new BMap.Marker(pts[0],{icon:myIcon});
 			map.addOverlay(carMk);
 			i=0;

@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>添加标签</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+			.main-header {
+				padding: 0 5%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			
+			.header-left {
+				font-size: 0.5rem;
+				font-weight: normal;
+				font-stretch: normal;
+				color: #ffffff;
+			}
+			
+			.header-left img {
+				width: 0.264rem;
+				height: 0.5rem;
+				margin-top: -0.1rem;
+				margin-right: 0.208rem;
+			}
+			
+			.header-right {
+				font-size: 0.389rem;
+				font-weight: normal;
+				font-stretch: normal;
+				color: #ffffff;
+			}
+			
+			.add-tag {
+				width: 92.2%;
+				display: flex;
+				align-items: center;
+				margin: 0 auto;
+				margin-top: 0.583rem;
+				height: 1.25rem;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+			}
+			.add-tag-text{
+				font-size: 0.444rem;
+				color: #949398;
+				margin-left: 0.403rem;
+			}
+			.add-tag img {
+				margin-left: 0.583rem;
+				width: 0.444rem;
+				height: 0.444rem;
+			}
+			
+			.add-tag-body {
+				width: 92.2%;
+				margin:0.583rem auto;
+				min-height: 4.306rem;
+				background-color: #ffffff;
+				box-shadow: 0rem 0.028rem 0.375rem 0.042rem rgba(183, 183, 183, 0.3);
+				border-radius: 0.417rem;
+				padding: 0.417rem 0;
+			}
+			.add-tag-body li{
+				height: 0.444rem;
+				line-height: 0.444rem;
+				padding: 0 0.583rem;
+				margin-bottom: 0.583rem;
+			}
+			.add-tag-body li:last-child{
+				margin-bottom: 0;
+			}
+			.add-tag-body img {
+				width: 0.444rem;
+				height: 0.444rem;
+				margin-bottom: 0.1rem;
+				margin-right: 0.403rem;
+			}
+			.add-tag-body span{
+				font-size: 0.444rem;
+				font-weight: normal;
+				font-stretch: normal;
+				color: #2f303a;
+			}
+			/*点击样式*/
+			.header-right:active{
+				opacity: 0.5;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="main-header" id="header">
+			<div class="header-left mui-action-back">
+				<img align="center" class="mui-action-back" src="../images/back.png" /> 选取公司
+			</div>
+			<div id="header-right" class="header-right">完成</div>
+		</header>
+		<div class="mui-content" id="content">
+			<div class="add-tag" id="add-tag">
+				<img align="center" src="../images/addTag/add_label.png" />
+				<div class="add-tag-text">新增公司</div>
+			</div>
+			<div class="add-tag-body">
+				<ul>
+					<!--<li data-type = '1'>
+						<img v-if="picked" align="center" src="../images/addTag/tick.png" />
+						<img v-else align="center" src="../images/addTag/untick.png" />
+						<span>银行</span>
+					</li>-->
+					<li v-for="(item,index) in tagList" :data-type = 'index+1'>
+						<!--<img v-if="item.checked==true" align="center" src="../images/addTag/tick.png" />
+						<img v-else align="center" src="../images/addTag/untick.png" />-->
+						<input type="radio" v-model="company" :value="index" />
+						<span v-text="item.index"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/immersed.js" ></script>
+		<script type="text/javascript" src="../js/indexedDB.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function(){
+					//获得列表界面的webview
+					var content = plus.webview.getWebviewById(viewId);
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					if(flagChange){
+						mui.fire(content,'addCompany',{
+						  checkArr:checkArr
+						});
+					}
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			});
+			var viewId = null;
+			var checkArr = null;
+			var flagChange = false;
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+			    viewId = self.viewId;
+			})
+			var vm = new Vue({
+	            el: '#content',
+	            data: {
+	                tagList:[],
+	                company:'',
+	                picked:false
+	            }
+	       })
+			var tagArr = [];
+			var confirmArr = [];
+			var confirmObj = [];
+			//查询所有公司
+			openDB(function(data){
+					console.log('打开数据库成功！',JSON.stringify(data))
+					if(data.type == true){
+						searchData('Company',function(dataArr){
+							//处理查询到的数据
+							vm.tagList = tagArr = processingData(dataArr);
+               	 		})
+					}else{
+						plus.nativeUI.toast('获取数据失败！')
+					}
+				});
+			//添加公司
+			var add_tag = document.getElementById("add-tag");
+			add_tag.addEventListener('tap',function(e){
+				console.log('31',vm.company)
+			})		
+			
+			//点击确定
+			var header_right = document.getElementById("header-right");
+			var detailPage = plus.webview.getWebviewById(viewId);
+			header_right.addEventListener('tap',function(){
+				flagChange = true;
+				checkArr = tagArr[vm.company];
+//				mui.fire(detailPage,'addTag',{
+//				  checkArr:checkArr
+//				});
+				mui.back();
+			})
+			
+			
+			function processingData(arr){
+				var newArr = [];
+				for(var i=0;i<arr.length;i++){
+					var obj = {};
+					obj.uuid = arr[i].uuid;
+					obj.index = arr[i].name;
+					obj.checked = false;		
+					newArr.push(obj);
+				}
+				return newArr;
+		}
+		</script>
+	</body>
+
+</html>

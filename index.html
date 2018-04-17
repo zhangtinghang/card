@@ -6,7 +6,7 @@
 		<title>个人名片</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
 		<script type="text/javascript" src="js/zoom/flexible.js"></script>
 		<link rel="stylesheet" href="css/mui.min.css">
 		<link rel="stylesheet" href="css/style.css" />
@@ -14,22 +14,12 @@
 			.content-body {
 				position: relative;
 				padding-top: 50px;
-				padding-bottom: 2px;
-			}
-			
-			.body-bg {
-				height: 3.2rem;
-				width: 100%;
-				position: fixed;
-				top: 1.322rem;
-				transform: translateY(37.6px);
-				-wevkit-transform: translateY(37.6px);
-				left: 0;
-				z-index: 0;
-				background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffbb3c, #ffbb3c);
-				background-blend-mode: normal, normal;
-				border-radius: 0 0 0.833rem 0.833rem;
-			}
+				padding-bottom: 50px;
+				height: 100%;
+			}	
+			/*.mui-content{
+				height: 100%;
+			}*/
 		</style>
 	</head>
 
@@ -48,37 +38,77 @@
 				<div id="mui-scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll" id="mui-scroll">
 						<a class="mui-control-item mui-active" href="0">
-							推荐
+							全部
 						</a>
 						<a class="mui-control-item" href="1">
-							热点
+							银行
 						</a>
 						<a class="mui-control-item" href="2">
-							北京
+							餐饮
 						</a>
 						<a class="mui-control-item" href="3">
-							社会
+							政府
 						</a>
 						<a class="mui-control-item" href="4">
-							娱乐
+							行业协会
 						</a>
 						<a class="mui-control-item" href="5">
-							科技
+							游戏
 						</a>
 						<a class="mui-control-item" href="6">
-							科技
+							ITO
 						</a>
 						<a class="mui-control-item" href="7">
-							科技
+							BPO
+						</a>
+						<a class="mui-control-item" href="8">
+							KPO
+						</a>
+						<a class="mui-control-item" href="9">
+							开发游戏
 						</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="content-body">
-				<div class="body-bg" id="body-bg"></div>
-
-				<div class="card-model">
+			<div class="content-body content-body-main">
+				<div v-for="item in dataList" class="card-model" @tap="open_detail(item)">
+					<nav class="nav-tag">
+						<div class="tag-items">
+							<div id="slider" class="mui-slider slider-card">
+								<div class="mui-scroll-wrapper scroll-wrapper-tag mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+									<div class="mui-scroll mui-scroll-tag">
+										<ul>
+											<div v-if="item.tag" class="tag-items-li" v-for="(tagItem ,index) in item.tag" :class="index | tagItemClass" v-text="tagItem.text"></div>
+											<!--<div class="tag-items-li tag-item-2">协会</div>
+											<div class="tag-items-li tag-item-3">软件</div>-->
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tag-text mui-ellipsis-1" v-text="item.company">猫爪科技有限公司</div>
+					</nav>
+					<div class="body-content">
+						<div class="body-content-img">
+							<img src="" />
+						</div>
+						<div class="body-content-mess">
+							<div class="mess-title">
+								<div class="title-name mui-ellipsis-1" v-text="item.name">李晓明</div>
+								<div class="title-icon-phone" :data-phone = "item.workNum">
+									<img align="center" src="images/index/call_to.png" />
+								</div>
+								<div class="title-icon-adress">
+									<img align="center" src="images/index/company_infor.png" />
+								</div>
+							</div>
+							<div class="adress-text mui-ellipsis-1" v-text="item.site">资源对接办公室</div>
+						</div>
+					</div>
+				</div>
+				
+				<!--<div class="card-model">
 					<nav class="nav-tag">
 						<div class="tag-items">
 							<div id="slider" class="mui-slider slider-card">
@@ -87,8 +117,6 @@
 										<ul>
 											<div class="tag-items-li tag-item-1">会员</div>
 											<div class="tag-items-li tag-item-2">协会</div>
-											<div class="tag-items-li tag-item-3">软件</div>
-											<div class="tag-items-li tag-item-3">软件</div>
 											<div class="tag-items-li tag-item-3">软件</div>
 										</ul>
 									</div>
@@ -114,8 +142,8 @@
 							<div class="adress-text mui-ellipsis-1">资源对接办公室</div>
 						</div>
 					</div>
-				</div>
-
+				</div>-->
+				
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
@@ -124,7 +152,11 @@
 		<script src="js/mui.pullToRefresh.js"></script>
 		<script src="js/mui.pullToRefresh.material.js"></script>
 		<script type="text/javascript" src="js/mui.slider.js"></script>
+		<script type="text/javascript" src="js/config.js" ></script>
+		<script type="text/javascript" src="js/indexedDB.js" ></script>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
 		<script type="text/javascript">
+			mui.init();
 			mui.plusReady(function () {
 			    // 创建子webview窗口 并初始化
 				var aniShow = {};
@@ -148,7 +180,7 @@
 						currIndex = 1;
 					} else if(clientX > parseInt(pageW * 0.7) && clientX <= parseInt(pageW * 0.9)) {
 						currIndex = 2;
-					}
+					} 
 					// 匹配对应tab窗口	
 					if(currIndex > 0) {
 						targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
@@ -168,10 +200,47 @@
 					activePage = targetPage;
 				});
 				
-				mui('.mui-scroll').on('tap', 'a', function() {
-					console.log('开始')
+				
+				//跳转添加名片
+				mui('#header').on('tap','.header-addIcon',function(){
+					openView.usuView('pages/card_detail_edit.html','card_detail_edit',{type:true});
 				})
-			})			
+//				indexedDB.deleteDatabase('usersDB');
+				openDB(function(data){
+					if(data.type == true){
+						searchData('Cards',function(dataArr){
+                			vm.dataList = dataArr;
+               	 		})  
+					}else{
+						plus.nativeUI.toast('获取数据失败！')
+					}
+				});
+			});
+			Vue.filter('tagItemClass',function(value){
+				var num = value+1;
+				if(num >3){
+					num = 20;
+				}
+				return 'tag-item-'+num;
+			})
+			var vm = new Vue({
+	            el: '.content-body-main',
+	            data: {
+	                dataList:''
+	            }
+	      });
+	      function open_detail(data){
+	      	var database = JSON.stringify(data);
+	      	openView.usuView('pages/self_card.html','self_card',{database:database});
+	      }
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				scrollX: true
+			});
+			//横向切换
+			mui('#mui-scroll').on('tap', 'a', function() {
+				console.log('开始')
+			})
 		</script>
 	</body>
 

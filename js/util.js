@@ -18,24 +18,26 @@ var util = {
 	initSubpage: function(aniShow) {
 		var subpage_style = {
 				top: 0,
-				bottom: 51,
-				render:'always'
+				bottom: 44,
+				animationOptimization: "none",
+				plusrequire:"ahead",
+				render:"always",
+				scrollIndicator:'none',
+				softinputMode:'adjustResize'
 			},
+			
 			subpages = util.options.subpages,
 			self = plus.webview.currentWebview(),
 			temp = {};
 
 
 			
-		//兼容安卓上添加titleNView 和 设置沉浸式模式会遮盖子webview内容
-//		if(mui.os.android) {
-//			if(plus.navigator.isImmersedStatusbar()) {
-//				subpage_style.top += plus.navigator.getStatusbarHeight();
-//			}
-//			if(self.getTitleNView()) {
-//				subpage_style.top += 40;
-//			}
-//		}
+		//兼容安卓上设置沉浸式模式会遮盖子webview内容
+		if(mui.os.android || mui.os.ios) {
+			if(plus.navigator.isImmersedStatusbar()) {
+				subpage_style.top += plus.navigator.getStatusbarHeight();
+			}
+		}
 
 		// 初始化第一个tab项为首次显示
 		temp[self.id] = "true";
@@ -44,12 +46,14 @@ var util = {
 		util.toggleNview(0);
 
 		for(var i = 0, len = subpages.length; i < len; i++) {
-			if(!plus.webview.getWebviewById(subpages[i])) {
-					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
-				//初始化隐藏
-				sub.hide();
+			if(!plus.webview.getWebviewById(subpages[i])) {	
+					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);					
 				// append到当前父webview
-				self.append(sub);
+				//延迟插入 避免渲染不出问题
+				setTimeout(function(){
+					sub.hide();
+					self.append(sub);
+				},50)					
 			}
 		}
 	},

@@ -27,7 +27,7 @@
 			
 			.title-avatar-bg {
 				position: absolute;
-				top: 2.194rem;
+				top: 0;
 				transform: translate(-50%, -50%);
 				-webkit-transform: translate(-50%, -50%);
 				left: 50%;
@@ -65,7 +65,7 @@
 			
 			.vivit_company_title {
 				padding-top: 1.014rem;
-				font-size: 0.278rem;
+				font-size: 0.333rem;
 				color: #46495b;
 				text-align: center;
 			}
@@ -78,8 +78,8 @@
 				text-align: center;
 			}
 			.vivit_company_body img{
-				width: 0.556rem;
-				height: 0.625rem;
+				width: 0.666rem;
+				height: 0.666rem;
 				margin-right: 0.483rem;
 				margin-top: -0.138rem;
 			}
@@ -99,6 +99,7 @@
 				top: 0;
 				left: 0;
 				overflow: hidden;
+				z-index: 9;
 				border-radius: 0.417rem;
 				width: 3.278rem;
 				height: 3.278rem;
@@ -149,7 +150,9 @@
 				justify-content: space-between;
 				margin-bottom: 0.217rem;
 			}
-			
+			.company_list_character li:last-child{
+				margin-bottom: 0;
+			}
 			.character_left {
 				font-size: 0.333rem;
 				color: #46495b;
@@ -166,6 +169,7 @@
 			.character_title {
 				font-size: 0.444rem;
 				color: #2f303a;
+				padding-bottom: 0.583rem;
 			}
 			
 			.add_icon{
@@ -196,38 +200,42 @@
 				background-color: #8a63c1;
 				box-shadow: 0rem 0.139rem 0.111rem 0rem rgba(138, 99, 193, 0.3);
 			}
+			
+			/*点击效果*/
+			.add_icon:active{
+				opacity: 0.5;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="main-header" id="header">
-			<div class="header-left">
-				<img align="center" src="../images/back.png" /> 拜访记录
+			<div class="header-left mui-action-back">
+				<img align="center" class="mui-action-back" src="../images/back.png" /> 拜访记录
 			</div>
-			<div class="header-right">
+			<!--<div class="header-right">
 				<img src="../images/company/add_visit.png" />
-			</div>
+			</div>-->
 		</header>
-		<div class="add_icon">
+		<div class="add_icon" id="add_icon">
 			<img src="../images/company/btn_add.png" />
 		</div>
 		<div class="mui-content" id="content">
 			<div class="body-bg"></div>
-			<div class="title-avatar-bg">
-				<div class="title-avatar">
-					4
-				</div>
+			<div class="content-body" id="content-body">
+				<div class="title-avatar-bg">
+				<div class="title-avatar" v-text="dataList.length"></div>
 			</div>
 			<div class="vivit_company">
 				<div class="vivit_company_title">
 					拜访次数
 				</div>
 				<div class="vivit_company_body">
-					<img align="center" src="../images/company/company_infor_visit.png" />猫爪科技有限公司
+					<img align="center" src="../images/company/company_infor_visit.png" /><span v-text="comapnyName">猫爪科技有限公司</span>
 				</div>
 			</div>
 
-			<div class="vivit_company_list">
+			<div v-for="item in dataList" class="vivit_company_list">
 				<div class="triangle_date">
 					<div class="triangle_right triangle_right_1"></div>
 					<div class="date-num">
@@ -240,21 +248,21 @@
 					<ul>
 						<li>
 							<div class="character_left"></div>
-							<div class="character_right character_title mui-ellipsis-1">对接洽谈海外游戏</div>
+							<div class="character_right character_title mui-ellipsis-1" v-text="item.visitGoal"></div>
 						</li>
 						<li>
 							<div class="character_left">拜访对象</div>
-							<div class="character_right">张明明 张明明 张明明 张明明</div>
+							<div class="character_right" v-text="item.visitName"></div>
 						</li>
 						<li>
 							<div class="character_left">拜访人员</div>
-							<div class="character_right">张晓明、李明、阿阮 张晓明</div>
+							<div class="character_right" v-text="item.visitPeople"></div>
 						</li>
 					</ul>
 				</div>
 			</div>
 
-			<div class="vivit_company_list">
+			<!--<div class="vivit_company_list">
 				<div class="triangle_date">
 					<div class="triangle_right triangle_right_2"></div>
 					<div class="date-num">
@@ -279,147 +287,47 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div>-->
 
-			<div class="vivit_company_list">
-				<div class="triangle_date">
-					<div class="triangle_right triangle_right_3"></div>
-					<div class="date-num">
-						<div class="date-date"><span class="date-month">05</span>.03</div>
-						<div class="date-year">-2018</div>
-					</div>
-				</div>
-
-				<div class="company_list_character">
-					<ul>
-						<li>
-							<div class="character_left"></div>
-							<div class="character_right character_title">对接洽谈海外游戏</div>
-						</li>
-						<li>
-							<div class="character_left">拜访对象</div>
-							<div class="character_right">张明明</div>
-						</li>
-						<li>
-							<div class="character_left">拜访人员</div>
-							<div class="character_right">张晓明、李明、阿阮</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="vivit_company_list">
-				<div class="triangle_date">
-					<div class="triangle_right triangle_right_2"></div>
-					<div class="date-num">
-						<div class="date-date"><span class="date-month">05</span>.03</div>
-						<div class="date-year">-2018</div>
-					</div>
-				</div>
-
-				<div class="company_list_character">
-					<ul>
-						<li>
-							<div class="character_left"></div>
-							<div class="character_right character_title">对接洽谈海外游戏</div>
-						</li>
-						<li>
-							<div class="character_left">拜访对象</div>
-							<div class="character_right">张明明</div>
-						</li>
-						<li>
-							<div class="character_left">拜访人员</div>
-							<div class="character_right">张晓明、李明、阿阮</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="vivit_company_list">
-				<div class="triangle_date">
-					<div class="triangle_right triangle_right_3"></div>
-					<div class="date-num">
-						<div class="date-date"><span class="date-month">05</span>.03</div>
-						<div class="date-year">-2018</div>
-					</div>
-				</div>
-
-				<div class="company_list_character">
-					<ul>
-						<li>
-							<div class="character_left"></div>
-							<div class="character_right character_title">对接洽谈海外游戏</div>
-						</li>
-						<li>
-							<div class="character_left">拜访对象</div>
-							<div class="character_right">张明明</div>
-						</li>
-						<li>
-							<div class="character_left">拜访人员</div>
-							<div class="character_right">张晓明、李明、阿阮</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="vivit_company_list">
-				<div class="triangle_date">
-					<div class="triangle_right triangle_right_1"></div>
-					<div class="date-num">
-						<div class="date-date"><span class="date-month">05</span>.03</div>
-						<div class="date-year">-2018</div>
-					</div>
-				</div>
-
-				<div class="company_list_character">
-					<ul>
-						<li>
-							<div class="character_left"></div>
-							<div class="character_right character_title">对接洽谈海外游戏</div>
-						</li>
-						<li>
-							<div class="character_left">拜访对象</div>
-							<div class="character_right">张明明</div>
-						</li>
-						<li>
-							<div class="character_left">拜访人员</div>
-							<div class="character_right">张晓明、李明、阿阮</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="vivit_company_list">
-				<div class="triangle_date">
-					<div class="triangle_right triangle_right_2"></div>
-					<div class="date-num">
-						<div class="date-date"><span class="date-month">05</span>.03</div>
-						<div class="date-year">-2018</div>
-					</div>
-				</div>
-
-				<div class="company_list_character">
-					<ul>
-						<li>
-							<div class="character_left"></div>
-							<div class="character_right character_title">对接洽谈海外游戏</div>
-						</li>
-						<li>
-							<div class="character_left">拜访对象</div>
-							<div class="character_right">张明明</div>
-						</li>
-						<li>
-							<div class="character_left">拜访人员</div>
-							<div class="character_right">张晓明、李明、阿阮</div>
-						</li>
-					</ul>
-				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript" src="../js/indexedDB.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			mui.init();
+			var vm = new Vue({
+	            el: '#content',
+	            data: {
+	                dataList:'',
+	                comapnyName:''
+	            },
+	            mounted:function(){
+	            	var that = this;
+	            	mui.plusReady(function () {
+					    var self = plus.webview.currentWebview();
+					    var companyUid = self.companyUid;
+					    openDB(function(data){
+							if(data.type == true){
+								selectOneData('Visit',"ownerIndex",companyUid,function(visitData){
+							    	that.dataList = visitData;
+							    	that.comapnyName = visitData[0].visitCompany;
+							    })
+							}else{
+								plus.nativeUI.toast('获取数据失败！')
+							}
+						});
+					//点击新增拜访记录
+					var add_icon = document.getElementById("add_icon");
+					add_icon.addEventListener('tap',function(){
+						openView.usuView('card_detail_edit.html','card_detail_edit',{type:true});
+					})
+					})
+	            }
+	     });
 		</script>
 	</body>
 

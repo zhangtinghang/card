@@ -29,7 +29,7 @@
 	});
 	$('.mui-scroll').on('tap','a',function(){
 		var href = this.getAttribute('href');
-
+		console.log(href)
 		if(href < 2){
 			$('#mui-scroll-wrapper').scroll().scrollTo(0,0,500);//100毫秒滚动到顶
 		}else if(href > sliderNodeEnd){

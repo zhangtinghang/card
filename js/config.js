@@ -35,7 +35,7 @@ var openView = {
 
 	usuView: function(url, id, extras,bounce) {
 		var extras = extras || '';
-		var bounce = bounce ||'vertical';
+		var bounce = bounce ||'none';
 		mui.openWindow({
 			url: url,
 			id: id,
@@ -44,7 +44,8 @@ var openView = {
 			},
 			extras: extras,
 			styles:{
-				bounce:bounce
+				bounce:bounce,
+				scrollIndicator:'none'
 			}
 		})
 	},

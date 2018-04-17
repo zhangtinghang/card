@@ -33,6 +33,7 @@
 				width: 3.278rem;
 				height: 3.278rem;
 				background-color: #FFFFFF;
+				z-index: 9;
 			}
 			
 			.triangle_right {
@@ -77,6 +78,7 @@
 				text-align: center;
 				padding-top: 0.583rem;
 				position: relative;
+				z-index: 10;
 				width: 65%;
 				margin: 0 auto;
 			}
@@ -94,9 +96,11 @@
 			}
 			
 			.card-item {
+				position: relative;
+				z-index: 999;
 				display: flex;
 				justify-content: space-between;
-				align-items: center;
+				/*align-items: center;*/
 				min-height: 0.961rem;
 			}
 			
@@ -161,8 +165,8 @@
 
 	<body>
 		<header class="main-header" id="header">
-			<div class="header-left">
-				<img align="center" src="../images/back.png" /> 记录详情
+			<div class="header-left mui-action-back">
+				<img align="center" class="mui-action-back" src="../images/back.png" /> 记录详情
 			</div>
 		</header>
 		<div class="mui-content" id="content">
@@ -175,43 +179,58 @@
 						<div class="date-year">-2018</div>
 					</div>
 				</div>
-				<div class="card-title">对接洽谈海外游戏</div>
+				<div class="card-title" v-text="dataList.visitGoal ||'未知'"></div>
 				<div class="card-body">
-					<div class="card-small">米椒科技有限公司</div>
+					<div class="card-small" v-text="dataList.visitCompany || '未知'"></div>
 					<div class="card-item">
 						<span class="item-left">拜访对象</span>
-						<span class="item-right">张明明</span>
+						<span class="item-right" v-text="dataList.visitName ||'未知'"></span>
 					</div>
 					<div class="card-item">
 						<span class="item-left">拜访人员</span>
-						<span class="item-right">张晓明、李明、阿阮 张晓明、李明、阿阮 张晓明、李明、阿阮</span>
+						<span class="item-right" v-text="dataList.visitPeople ||'未知'"></span>
 					</div>
 					<div class="card-item">
 						<span class="item-left">记录人员</span>
-						<span class="item-right">范凡</span>
+						<span class="item-right" v-text="dataList.visitRecord ||'未知'"></span>
 					</div>
 					<div class="visit-record visit-record-line">
 						<span class="circle circle-1"></span> 拜访记录
 					</div>
-					<div class="body-text">对接游戏外包，促进本公司的海外市场。对接游戏外包，促进本公司的海外市场。</div>
+					<div class="body-text" v-text="dataList.visitSummary ||'未知'"></div>
 
 					<div class="visit-record">
 						<span class="circle circle-2"></span> 遗留问题
 					</div>
-					<div class="body-text">对接游戏外包，促进本公司的海外市场。</div>
+					<div class="body-text" v-text="dataList.visitOver ||'未知'"></div>
 
 					<div class="visit-record">
 						<span class="circle circle-3"></span> 其他
 					</div>
-					<div class="body-text">对接游戏外包，促进本公司的海外市场。</div>
-					<div class="body-time">2018-03-27 13: 30</div>
+					<div class="body-text" v-text="dataList.visitRest ||'未知'"></div>
+					<div class="body-time" v-text="dataList.visitTime"></div>
 				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			var vm = new Vue({
+	            el: '#content',
+	            data: {
+	                dataList:''
+	            },
+	            mounted:function(){
+	            	var that = this;
+	            	mui.plusReady(function () {
+					    var self = plus.webview.currentWebview();
+					    var database = self.database;
+					    that.dataList = JSON.parse(database);
+					})
+	            }
+	     });
 		</script>
 	</body>
 

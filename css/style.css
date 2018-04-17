@@ -3,7 +3,7 @@
 .main-header {
 	width: 100%;
 	padding: 0 5%;
-	height: 1.333rem;
+	height: 49px;
 	background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffc041, #ffc041);
 	background-blend-mode: normal, normal;
 	position: fixed;
@@ -12,7 +12,6 @@
 	display: flex;
 	z-index: 9999;
 }
-
 			
 .header-left {
 	font-size: 0.5rem;
@@ -20,6 +19,11 @@
 	font-stretch: normal;
 	color: #ffffff;
 }
+
+.header-left:active{
+	opacity: 0.5;
+}
+
 
 .header-left img {
 	width: 0.264rem;
@@ -168,7 +172,10 @@ to {
 
 /*名片布局部分*/
 .mui-content {
-	padding-top: 1.322rem;
+	padding-top: 49px;
+}
+.content-body{
+	position: relative;
 }
 .card-model {
 	width: 90%;
@@ -222,6 +229,10 @@ to {
 	box-shadow: 0rem 0.139rem 0.111rem 0rem rgba(251, 133, 56, 0.3);
 }
 .tag-item-3 {
+	background-color: #8a63c1 !important;
+	box-shadow: 0rem 0.139rem 0.111rem 0rem rgba(138, 99, 193, 0.3);
+}
+.tag-item-4 {
 	background-color: #8a63c1 !important;
 	box-shadow: 0rem 0.139rem 0.111rem 0rem rgba(138, 99, 193, 0.3);
 }
@@ -295,9 +306,10 @@ to {
 /*左滑标签样式*/
 .slider-card{
 	position: relative;
+	background-image: none;
 }
 .scroll-wrapper-tag{
-	height: 0.7rem !important;
+	height: 0.75rem !important;
 	background-color: #FFFFFF;
 }
 .mui-scroll-tag{
@@ -305,14 +317,32 @@ to {
 }
 
 /*背景图*/
+.content-body-main{
+	background-image: url(../images/bg.png);
+	background-repeat: no-repeat;
+	background-size:100% 150px;
+}
 .body-bg {
-	height: 3.2rem;
+	height: calc(3.2rem + 38px);
 	width: 100%;
 	position: fixed;
-	top: 1.194rem;
+	top: 37px;
 	left: 0;
 	z-index: 0;
 	background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffbb3c, #ffbb3c);
 	background-blend-mode: normal, normal;
+	background-attachment:fixed;
+	border-radius: 0 0 0.833rem 0.833rem;
+}
+.body-bg-main {
+	height: 3.2rem;
+	width: 100%;
+	position: fixed;
+	top: 37px;
+	left: 0;
+	z-index: 0;
+	background-image: linear-gradient(-86deg, rgba(254, 208, 125, 0.46) 0%, rgba(255, 191, 80, 0.46) 33%, rgba(255, 186, 66, 0.46) 42%, rgba(255, 173, 33, 0.46) 57%, rgba(254, 160, 0, 0.46) 100%), linear-gradient( #ffbb3c, #ffbb3c);
+	background-blend-mode: normal, normal;
+	background-attachment:fixed;
 	border-radius: 0 0 0.833rem 0.833rem;
 }
