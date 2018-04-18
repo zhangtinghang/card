@@ -11,9 +11,10 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/style.css" />
 		<style>
-			.mui-content{
+			.mui-content {
 				padding-bottom: 0.538rem;
 			}
+			
 			.right-update {
 				width: 0.611rem;
 				height: 0.583rem;
@@ -240,9 +241,10 @@
 				align-items: center;
 			}
 			
-			.edit-left-box:last-child{
+			.edit-left-box:last-child {
 				border-bottom: none;
 			}
+			
 			.edit-left-box input {
 				padding: 0;
 				margin: 0;
@@ -320,38 +322,45 @@
 				font-size: 0.389rem;
 				color: #ffffff;
 			}
-			.visit-right img{
+			
+			.visit-right img {
 				width: 0.444rem;
 				height: 0.444rem;
 				margin-top: 0.138rem;
 			}
 			
-			.look-more{
+			.look-more {
 				text-align: center;
 				height: 1.139rem;
 				line-height: 1.139rem;
 				font-size: 0.389rem;
 				color: #05b9fc;
 			}
-			.look-more img{
+			
+			.look-more img {
 				width: 0.167rem;
 				height: 0.306rem;
 				margin-left: 0.194rem;
 			}
 			/*点击样式*/
-			.right-update:active{
+			
+			.right-update:active {
 				opacity: 0.5;
 			}
-			.right-edit:active{
+			
+			.right-edit:active {
 				opacity: 0.5;
 			}
-			.tag-text:active{
+			
+			.tag-text:active {
 				opacity: 0.5;
 			}
-			.edit-icon:active{
+			
+			.edit-icon:active {
 				color: #000000;
 			}
-			.visit-right:active{
+			
+			.visit-right:active {
 				opacity: 0.5;
 			}
 		</style>
@@ -476,7 +485,7 @@
 						</li>
 					</ul>
 				</div>
-				
+
 				<!--企业类别-->
 				<div class="edit-bg">
 					<ul>
@@ -549,9 +558,9 @@
 				<!--拜访记录-->
 				<div class="edit-bg">
 					<div class="visit-edit">
-							<div class="visit-left">拜访记录</div>
-							<div class="visit-right"><img src="../images/company/add_visit.png" /></div>
-						</div>
+						<div class="visit-left">拜访记录</div>
+						<div class="visit-right"><img src="../images/company/add_visit.png" /></div>
+					</div>
 					<ul class="visit-list">
 						<li v-for="visitItem in visitList" @tap="open_detail(visitItem)">
 							<div class="edit-left-box">
@@ -564,104 +573,116 @@
 					<div id="look-more" v-if="visitList.length != 0" class="look-more">
 						查看更多<img src="../images/mySelf/next.png" />
 					</div>
-				</div>			
+				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/immersed.js" ></script>
-		<script type="text/javascript" src="../js/config.js" ></script>
-		<script type="text/javascript" src="../js/indexedDB.js" ></script>
-		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript" src="../js/config.js"></script>
+		<script type="text/javascript" src="../js/indexedDB.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			var database = null;
 			var type = null;
-			
-			Vue.filter('tagItem',function(value){
+
+			Vue.filter('tagItem', function(value) {
 				var num = Math.random();
-				console.log(parseInt(num*10/3+1))
-				return 'tag-item-'+parseInt(num*10/3+1);
+				console.log(parseInt(num * 10 / 3 + 1))
+				return 'tag-item-' + parseInt(num * 10 / 3 + 1);
 			})
 			var vm = new Vue({
-	            el: '#content',
-	            data: {
-	                dataList:'',
-	                tag:'',
-	                visitList:''
-	            },
-	            mounted:function(){
-	            	var that = this;
-	            	mui.plusReady(function () {
-					    var self = plus.webview.currentWebview();
-					    database = JSON.parse(self.database);
-					    var uuid = null;
-					    type = self.type;
-					    if(type == 'company'){
-					    	that.dataList = database;
-					    	that.tag = database.tag;
-					    	uuid = database.uuid;
-					    }
-					    openDB(function(data){
-							if(data.type == true){
-								selectOneData('Visit',"ownerIndex",uuid,function(visitData){
-							    	vm.visitList = visitData;
-							    })
-							}else{
+				el: '#content',
+				data: {
+					dataList: '',
+					tag: '',
+					visitList: ''
+				},
+				mounted: function() {
+					var that = this;
+					mui.plusReady(function() {
+						var self = plus.webview.currentWebview();
+						var uuid = null;
+						type = self.type;
+						openDB(function(data) {
+							if(data.type == true) {
+								if(type == 'company') {
+									database = JSON.parse(self.database);
+									that.dataList = database;
+									that.tag = database.tag;
+									uuid = database.uuid;
+								} else if(type == 'self') {
+									uuid = self.companyUid;
+									selectUidData('Company', uuid,function(companyData){
+										that.dataList = companyData;
+										that.tag = companyData.tag;
+									})
+								}
+								selectOneData('Visit', "ownerIndex", uuid, function(visitData) {
+									vm.visitList = visitData;
+								})
+							} else {
 								plus.nativeUI.toast('获取数据失败！')
 							}
 						});
-					    
+
 					})
-	            }
-	     });
+				}
+			});
 			//名片编辑
-			mui('.header-right').on('tap','.right-edit',function(){
-				openView.usuView('card_detail_edit.html','card_detail_edit');
+			mui('.header-right').on('tap', '.right-edit', function() {
+				openView.usuView('card_detail_edit.html', 'card_detail_edit');
 			})
 			//名片更新
-			mui('.header-right').on('tap','.right-update',function(){
-				
+			mui('.header-right').on('tap', '.right-update', function() {
+
 			})
 			//标签添加
-			mui('.nav-tag').on('tap','.tag-text',function(){
-//				openView.usuView('add_tag.html','add_tag');
+			mui('.nav-tag').on('tap', '.tag-text', function() {
+				//				openView.usuView('add_tag.html','add_tag');
 				plus.nativeUI.toast('暂不支持修改~')
 			});
 			//个人名片
-			mui('.mui-slider-group').on('tap','.body-title',function(){
-				openView.usuView('self_card.html','self_card');
+			mui('.mui-slider-group').on('tap', '.body-title', function() {
+				openView.usuView('self_card.html', 'self_card');
 			})
 			//展开
 			var edit_btn = document.getElementById("edit-icon");
-			if(edit_btn){
+			if(edit_btn) {
 				var edit_content = document.getElementById("edit-left-content");
-				edit_btn.addEventListener('tap',function(){
+				edit_btn.addEventListener('tap', function() {
 					//查询是否有class
-					if(edit_content.classList.contains('mui-ellipsis-2')){
-					    edit_content.classList.remove('mui-ellipsis-2');
-					    edit_btn.innerText = '收起';
-					}else{
+					if(edit_content.classList.contains('mui-ellipsis-2')) {
+						edit_content.classList.remove('mui-ellipsis-2');
+						edit_btn.innerText = '收起';
+					} else {
 						edit_content.classList.add('mui-ellipsis-2');
-					    edit_btn.innerText = '展开';
+						edit_btn.innerText = '展开';
 					}
 				})
 			}
 			//添加拜访记录
-			mui('.visit-edit').on('tap','.visit-right',function(){
+			mui('.visit-edit').on('tap', '.visit-right', function() {
 				var companyUid = vm.dataList.uuid;
-				openView.usuView('company_visit_edit.html','company_visit_edit',{companyUid:companyUid,type:true});
+				openView.usuView('company_visit_edit.html', 'company_visit_edit', {
+					companyUid: companyUid,
+					type: true
+				});
 			});
 			//查看拜访记录
-			function open_detail(data){
-		    	var databases = JSON.stringify(data);
-		    	openView.usuView('company_visit.html','company_visit',{database:databases});
-		    }
+			function open_detail(data) {
+				var databases = JSON.stringify(data);
+				openView.usuView('company_visit.html', 'company_visit', {
+					database: databases
+				});
+			}
 			//更多拜访记录
-			mui('.content-body').on('tap','.look-more',function(){
+			mui('.content-body').on('tap', '.look-more', function() {
 				var companyUid = database.uuid;
-				openView.usuView('company_visit_list.html','company_visit_list',{companyUid:companyUid});
+				openView.usuView('company_visit_list.html', 'company_visit_list', {
+					companyUid: companyUid
+				});
 			})
-
 		</script>
 	</body>
 

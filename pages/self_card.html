@@ -347,7 +347,8 @@
 	       	})
 			//名片编辑
 			mui('.header-right').on('tap','.right-edit',function(){
-				openView.usuView('card_detail_edit.html','card_detail_edit');
+				var databases = JSON.stringify(database);
+				openView.usuView('card_detail_edit.html','card_detail_edit',{database:databases});
 			})
 			//名片更新
 			mui('.header-right').on('tap','.right-update',function(){
@@ -357,7 +358,12 @@
 			
 			//公司详情
 			mui('.content-body').on('tap','.card-company',function(){
-				openView.usuView('company_detail.html','company_detail');
+				if(database.company_uuid != null || database.company_uuid != undefined){
+					openView.usuView('company_detail.html','company_detail',{companyUid:database.company_uuid,type:'self'});
+				}else{
+					plus.nativeUI.toast('暂未绑定公司~');
+				}
+				
 			})
 			
 			var gallery = mui('#mui-slider-image');

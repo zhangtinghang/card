@@ -80,6 +80,18 @@ function updateOneData(id){
  * 查询单条数据
  * @param {string} 根据uuid查询相关内容
  */
+function selectUidData(storeName,id,callback){
+    var tx = db.transaction(storeName,'readonly');
+    var store = tx.objectStore(storeName);
+    var req = store.get(id);
+    req.onsuccess = function(){
+        return callback && callback(this.result);
+    }
+}
+/**
+ * 查询单条数据
+ * @param {string} 根据索引查询相关内容
+ */
 function selectOneData(storeName,indexName,id,callback){
     var tx = db.transaction(storeName,'readonly');
     var store = tx.objectStore(storeName);

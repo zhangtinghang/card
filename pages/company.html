@@ -170,8 +170,6 @@
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
-			mui.plusReady(function () {})
-			
 			Vue.filter('tagItemClass',function(value){
 				var num = value+1;
 				if(num >4){
@@ -186,11 +184,11 @@
 	                tag:''
 	            }
 	      });
-	      
+	      var dataBase = '';
         	openDB(function(data){
 				if(data.type == true){
 					searchData('Company',function(dataArr){
-            			vm.dataList = dataArr;
+            			vm.dataList = dataBase = dataArr;
             			vm.tag = dataArr.tag;
            	 		})  
 				}else{
@@ -199,13 +197,40 @@
 			});
 			//横向切换
 			mui('.mui-scroll').on('tap', 'a', function() {
-				console.log('开始')
-			})
+					var href = this.getAttribute('href');				
+					if(href == '0'){
+						vm.dataList = dataBase;
+						return ;
+					}
+					ws.setStyle({mask: 'rgba(0,0,0,0.5)'});
+					var w = plus.nativeUI.showWaiting("查询中，请等待...", {loading: {icon: "images/waiting.png"},back: "none"});
+					selectData(dataBase,href,function(Array){
+						vm.dataList = Array;
+						ws.setStyle({mask: 'none'});
+						w.close();
+					});
+				})
 			//卡片点击切换
 			function open_detail(data){
 		    	var database = JSON.stringify(data);
 		    	openView.usuView('company_detail.html','company_detail',{database:database,type:'company'});
 		    }
+			
+			function selectData(dataBase,number,callback){
+				var changeArr = [];
+				var Array = dataBase.map(function(value,index,dataBase){
+					var tagArr = value.tag;
+					var selectArr = [];
+					if(tagArr.length != 0){
+						tagArr.map(function(val,index,dataBase){
+							if(val.index == number){
+								changeArr.push(value);
+							}
+						})
+					}
+				})
+				return callback && callback(changeArr);
+			}
 			
 			//跳转添加名片
 			mui('#header').on('tap','.header-addIcon',function(){

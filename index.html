@@ -16,10 +16,11 @@
 				padding-top: 50px;
 				padding-bottom: 50px;
 				height: 100%;
-			}	
-			/*.mui-content{
+			}
+			
+			.mui-content {
 				height: 100%;
-			}*/
+			}
 		</style>
 	</head>
 
@@ -96,7 +97,7 @@
 						<div class="body-content-mess">
 							<div class="mess-title">
 								<div class="title-name mui-ellipsis-1" v-text="item.name">李晓明</div>
-								<div class="title-icon-phone" :data-phone = "item.workNum">
+								<div class="title-icon-phone" :data-phone="item.workNum">
 									<img align="center" src="images/index/call_to.png" />
 								</div>
 								<div class="title-icon-adress">
@@ -107,7 +108,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!--<div class="card-model">
 					<nav class="nav-tag">
 						<div class="tag-items">
@@ -143,23 +144,24 @@
 						</div>
 					</div>
 				</div>-->
-				
+
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/immersed.js"></script>
-		<script type="text/javascript" src="js/util.js" ></script>
+		<script type="text/javascript" src="js/util.js"></script>
 		<script src="js/mui.pullToRefresh.js"></script>
 		<script src="js/mui.pullToRefresh.material.js"></script>
 		<script type="text/javascript" src="js/mui.slider.js"></script>
-		<script type="text/javascript" src="js/config.js" ></script>
-		<script type="text/javascript" src="js/indexedDB.js" ></script>
-		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<script type="text/javascript" src="js/config.js"></script>
+		<script type="text/javascript" src="js/indexedDB.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
-			mui.plusReady(function () {
-			    // 创建子webview窗口 并初始化
+			mui.plusReady(function() {
+				// 创建子webview窗口 并初始化
 				var aniShow = {};
+				var dataBase = '';
 				util.initSubpage(aniShow);
 
 				var nview = plus.nativeObj.View.getViewById('tabBar'),
@@ -180,7 +182,7 @@
 						currIndex = 1;
 					} else if(clientX > parseInt(pageW * 0.7) && clientX <= parseInt(pageW * 0.9)) {
 						currIndex = 2;
-					} 
+					}
 					// 匹配对应tab窗口	
 					if(currIndex > 0) {
 						targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
@@ -199,48 +201,79 @@
 					//更新当前活跃的页面
 					activePage = targetPage;
 				});
-				
-				
+
 				//跳转添加名片
-				mui('#header').on('tap','.header-addIcon',function(){
-					openView.usuView('pages/card_detail_edit.html','card_detail_edit',{type:true});
+				mui('#header').on('tap', '.header-addIcon', function() {
+					openView.usuView('pages/card_detail_edit.html', 'card_detail_edit', {type: true});
 				})
-//				indexedDB.deleteDatabase('usersDB');
-				openDB(function(data){
-					if(data.type == true){
-						searchData('Cards',function(dataArr){
-                			vm.dataList = dataArr;
-               	 		})  
-					}else{
+				//				indexedDB.deleteDatabase('usersDB');
+
+				openDB(function(data) {
+					if(data.type == true) {
+						searchData('Cards', function(dataArr) {
+							vm.dataList = dataBase = dataArr;
+						})
+					} else {
 						plus.nativeUI.toast('获取数据失败！')
 					}
 				});
+				var ws = plus.webview.currentWebview();
+				//横向切换
+				mui('#mui-scroll').on('tap', 'a', function() {
+					var href = this.getAttribute('href');				
+					if(href == '0'){
+						vm.dataList = dataBase;
+						return ;
+					}
+					ws.setStyle({mask: 'rgba(0,0,0,0.5)'});
+					var w = plus.nativeUI.showWaiting("查询中，请等待...", {loading: {icon: "images/waiting.png"},back: "none"});
+					selectData(dataBase,href,function(Array){
+						vm.dataList = Array;
+						ws.setStyle({mask: 'none'});
+						w.close();
+					});
+				})
 			});
-			Vue.filter('tagItemClass',function(value){
-				var num = value+1;
-				if(num >3){
+			
+			function selectData(dataBase,number,callback){
+				var changeArr = [];
+				var Array = dataBase.map(function(value,index,dataBase){
+					var tagArr = value.tag;
+					var selectArr = [];
+					if(tagArr.length != 0){
+						tagArr.map(function(val,index,dataBase){
+							if(val.index == number){
+								changeArr.push(value);
+							}
+						})
+					}
+				})
+				return callback && callback(changeArr);
+			}
+			Vue.filter('tagItemClass', function(value) {
+				var num = value + 1;
+				if(num > 3) {
 					num = 20;
 				}
-				return 'tag-item-'+num;
+				return 'tag-item-' + num;
 			})
 			var vm = new Vue({
-	            el: '.content-body-main',
-	            data: {
-	                dataList:''
-	            }
-	      });
-	      function open_detail(data){
-	      	var database = JSON.stringify(data);
-	      	openView.usuView('pages/self_card.html','self_card',{database:database});
-	      }
+				el: '.content-body-main',
+				data: {
+					dataList: ''
+				}
+			});
+
+			function open_detail(data) {
+				var database = JSON.stringify(data);
+				openView.usuView('pages/self_card.html', 'self_card', {
+					database: database
+				});
+			}
 			mui('.mui-scroll-wrapper').scroll({
 				deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 				scrollX: true
 			});
-			//横向切换
-			mui('#mui-scroll').on('tap', 'a', function() {
-				console.log('开始')
-			})
 		</script>
 	</body>
 
